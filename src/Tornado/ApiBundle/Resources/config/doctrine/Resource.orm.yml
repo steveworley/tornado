@@ -1,0 +1,18 @@
+Tornado\ApiBundle\Entity\Resource:
+    type: entity
+    table: null
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        hash:
+            type: string
+            length: '100'
+        output:
+            type: blob
+        created:
+            type: date
+    lifecycleCallbacks: {  }

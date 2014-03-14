@@ -1,0 +1,7 @@
+tornado_api:
+    resource: "@TornadoApiBundle/Resources/config/routing.yml"
+    prefix:   /
+
+tornado_site:
+    resource: "@TornadoSiteBundle/Resources/config/routing.yml"
+    prefix:   /

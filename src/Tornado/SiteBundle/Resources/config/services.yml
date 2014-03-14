@@ -1,0 +1,7 @@
+parameters:
+#    tornado_site.example.class: Tornado\SiteBundle\Example
+
+services:
+#    tornado_site.example:
+#        class: %tornado_site.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

@@ -1,0 +1,11 @@
+tornado_site_homepage:
+    pattern:  /
+    defaults: { _controller: TornadoSiteBundle:Page:index }
+    requirements:
+      _method: GET
+
+tornado_site_documentation_page:
+    pattern: /docs
+    defaults: { _controller: TornadoSiteBundle:Page:documentation }
+    requirements:
+      _method: GET
