@@ -1,0 +1,7 @@
+# src/Tornado/ApiBundle/Resources/config/validation.yml
+
+Tornado\ApiBundle\Entity\Resource:
+  properties:
+    file:
+      - File:
+          maxSize: 6000000

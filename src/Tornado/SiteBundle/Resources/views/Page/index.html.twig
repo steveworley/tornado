@@ -2,58 +2,9 @@
 {% extends 'TornadoSiteBundle::layout.html.twig' %}
 
 {% block main %}
-  <ul class="nav nav-tabs" id="data-tab">
-    {% for tab_title in tab.headers %}
-      {% if loop.first %}
-        <li class="active" data-toggle="tab">
-      {% else %}
-        <li data-toggle="tab">
-      {% endif %}
-        <a href="#{{ tab_title }}">{{ tab_title }}</a>
-      </li>
-    {% endfor %}
-    {% if code %}
-      <li data-toggle="tab"><a href="#Code">Code</a></li>
-    {% endif %}
-  </ul>
-
-  <div class="tab-content">
-    {% for key, properties in breakdown %}
-      {% if loop.first %}
-        <div class="tab-pane active" id="{{ key }}">
-      {% else %}
-        <div class="tab-pane" id="{{ key }}">
-      {% endif %}
-        <table class="table table-striped" width="100%">
-          <tbody>
-            {% for item, value in properties %}
-              <tr>
-                <td>{{ item }}</td>
-                <td>{{ value }}</td>
-              </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      </div>
-    {% endfor %}
-    {% if code %}
-      <div id="Code" class="tab-pane">
-        <pre><code>{{ code }}</code></pre>
-      </div>
-    {% endif %}
-  </div>
-
+  {{ message }}
+  {{ form(form, {'method': 'POST'}) }}
 {% endblock %}
 
 {% block javascript %}
-<script type="text/javascript">
-  $(function() {
-    $('#data-tab a').on('click', function(e) {
-      e.preventDefault();
-      $(this).tab('show');
-    })
-  });
-
-  hljs.initHighlightingOnLoad();
-</script>
 {% endblock %}

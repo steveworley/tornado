@@ -1,6 +1,6 @@
 Tornado\ApiBundle\Entity\Resource:
     type: entity
-    table: null
+    table: tornado
     id:
         id:
             type: integer
@@ -12,7 +12,11 @@ Tornado\ApiBundle\Entity\Resource:
             type: string
             length: '100'
         output:
-            type: blob
+            type: text
+            size: medium
         created:
             type: date
+        path:
+            type: string
+            length: '255'
     lifecycleCallbacks: {  }

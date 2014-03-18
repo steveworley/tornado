@@ -1,0 +1,49 @@
+{# src/Tornado/SiteBundle/Resources/views/Page/share.html.twig #}
+{% extends 'TornadoSiteBundle::layout.html.twig' %}
+
+{% block main %}
+  <ul class="nav nav-tabs" id="output-tabs">
+    {% for name, output in Resource.getOutput() %}
+      {% if loop.first %}
+        <li class="tab active" data-toggle="tab">
+      {% else %}
+        <li class="tab" data-toggle="tab">
+      {% endif %}
+        <a href="#{{ name }}">{{ name }}</a>
+      </li>
+    {% endfor %}
+    <li class="tab"><a href="#Code">Code</a></li>
+  </ul>
+  <div class="tab-content">
+    {% for name, output in Resource.getOutput() %}
+      {% if loop.first %}
+        <div class="tab-pane fade active" id="{{ name }}">
+      {% else %}
+        <div class="tab-pane fade" id="{{ name }}">
+      {% endif %}
+        <table class="table table-stripped">
+          <tbody>
+            {% for name, value in output %}
+              <tr><td>{{ name }}</td><td>{{ value }}</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% endfor %}
+    <div class="has-js highlight tab-pane fade" id="Code">
+      <pre><code>{{ File }}</code></pre>
+    </div>
+  </div>
+{% endblock %}
+
+{% block javascript %}
+  <script type="text/javascript">
+    $(function() {
+      $('#output-tabs a').click(function (e) {
+        e.preventDefault()
+        $(this).tab('show')
+      })
+    });
+  </script>
+  <script>hljs.initHighlightingOnLoad();</script>
+{% endblock %}
