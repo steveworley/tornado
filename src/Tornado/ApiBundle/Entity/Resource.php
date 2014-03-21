@@ -225,12 +225,15 @@ class Resource
             return;
         }
 
+        // A unique dir.
+        $uniqueDir = substr(md5(time()), 0, 8);
+
         $this->getFile()->move(
-            $this->getUploadRootDir(),
+            $this->getUploadDir() . '/' . $uniqueDir,
             $this->getFile()->getClientOriginalName()
         );
 
-        $this->path = $this->getFile()->getClientOriginalName();
+        $this->path = $uniqueDir . '/' . $this->getFile()->getClientOriginalName();
         $this->file = null;
 
         return $this;
@@ -242,16 +245,23 @@ class Resource
      * @return array
      *   PHPLoc output converted to a PHP array.
      */
-    public function buildOutput()
+    public function buildFromFile()
     {
         if (NULL === $this->getAbsolutePath()) {
             return;
         }
 
+        $outputPath = explode('/', $this->getPath());
+
         // Perform phploc over the uploaded file.
-        exec("php ~/Scripts/phploc.phar " . $this->getAbsolutePath() . " > /tmp/" . $this->getPath());
-        // Get the output file so we can cast it to any array.
-        $phploc_output = file_get_contents("/tmp/" . $this->getPath());
+        exec("php ~/Scripts/phploc.phar " . $this->getAbsolutePath() . " > " . $this->getUploadDir() . '/' . reset($outputPath) . '/phploc.out');
+
+        try {
+            // Get the output file so we can cast it to any array.
+            $phploc_output = file_get_contents($this->getUploadDir() . '/' . reset($outputPath) . '/phploc.out');
+        } catch(ContextErrorException $e) {
+            throw new Exception("Something went wrong. Please upload your file again.");
+        }
 
         $string = str_replace('phploc 2.0.4 by Sebastian Bergmann.', '', $phploc_output);
         $prev_item = NULL;
@@ -282,6 +292,19 @@ class Resource
             ->setHash(substr(md5($this->getPath()), 0, 5));
 
         return $this;
+    }
+
+    public function buildFromCode($source) {
+        $source = "<?php \n\n" . $source;
+        $dir = substr(md5(time()), 0, 8);
+        $filename = "$dir/code.php";
+
+        exec("mkdir " . $this->getUploadRootDir() . "/$dir");
+        exec("touch " . $this->getUploadDir() . "/$filename");
+        file_put_contents($this->getUploadRootDir() . "/$filename", $source, FILE_APPEND | LOCK_EX);
+
+        $this->setPath($filename);
+        return $this->buildFromFile();
     }
 
     public function to($type) {

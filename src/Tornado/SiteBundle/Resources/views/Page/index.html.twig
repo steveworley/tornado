@@ -2,9 +2,83 @@
 {% extends 'TornadoSiteBundle::layout.html.twig' %}
 
 {% block main %}
-  {{ message }}
-  {{ form(form, {'method': 'POST'}) }}
+  <div class="index" id="home">
+    <h1 class="header-brand"><img src="{{ asset("images/logo-swirl-blue.png") }}"><br/>Tornado</h1>
+    <h2 class="header-slogan">Code complexity analysis tool for PHP.</h2>
+
+    <div class="has-js step-1 form" id="upload">
+      <div class="progress progress-striped hidden" id="file-upload-progress">
+        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+      <p class="upload-link"><button class="upload btn btn-info btn-big"><span class="glyphicon glyphicon-cloud-upload"></span> Upload a file</button><br /><a href="#code" class="btn btn-link">or paste in some code</a></p>
+      <div class="hidden">
+        {{ form(form, {method: "POST"}) }}
+        <div id="output"></div>
+      </div>
+    </div>
+    <div class="form hidden" id="code" style="text-align: center">
+      <div class="row">
+        <div class="col-md-6">
+          <div id="editor"></div>
+        </div>
+      </div>
+      <p class="upload-link"><button id="send-code" class="btn btn-info btn-big"><span class="glyphicon glyphicon-export"></span> Send source code</button><br /><a href="#upload" class="btn btn-link">or upload a file</a></p>
+      <form id="code-form" class="hidden" action="/api/code" method="POST">
+        <textarea id="code" name="code"></textarea>
+      </form>
+    </div>
+  </div>
 {% endblock %}
 
 {% block javascript %}
+<script>
+  require.config({
+    baseUrl:  window.location.protocol + "//" + window.location.host
+            + window.location.pathname.split("/").slice(0, -1).join("/"),
+    paths: {
+      ace: 'scripts/lib',
+    }
+  });
+
+  require(['ace/ace'], function(ace) {
+    window.editor = ace.edit('editor');
+    editor.setTheme('ace/theme/github');
+    editor.getSession().setMode('ace/mode/php');
+  });
+
+  $(function() {
+    var options = {
+      target: "#output",
+      beforeSubmit: function() {
+        console.log('beforeSubmit validate files');
+      },
+      uploadProgress: function(event, position, total, percentComplete) {
+        var $progressBar = $('#file-upload-progress .progress-bar');
+        $progressBar.parent().removeClass('hidden').addClass('active');
+        $progressBar.css({'width': percentComplete + '%'});
+      },
+      success: function(data) {
+        var Resource = $.parseJSON(data.resource);
+        window.location = '/r/' + Resource.hash;
+      },
+      resetForm: true
+    }
+
+    $('.btn.upload').bind('click', function() {
+      $('#form_file').trigger('click');
+    });
+    $('#form_file').bind('change', function() {
+      $(this).parents('form').ajaxSubmit(options);
+    });
+    $('#send-code').bind('click', function() {
+      $('#code-form textarea').val(window.editor.getSession().getValue());
+      $('#code-form').ajaxSubmit(options);
+    });
+    $('.btn-link').bind('click', function() {
+      var $this = $(this);
+      $this.parents('.form').addClass('hidden');
+      $($this.attr('href')).removeClass('hidden');
+    });
+  })
+</script>
 {% endblock %}

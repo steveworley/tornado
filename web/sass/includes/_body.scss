@@ -1,0 +1,48 @@
+body {
+  background: url('../images/greyzz.png') 0 0 repeat;
+}
+#main {
+  padding-top: 55px;
+}
+
+.index {
+  &#home {
+    text-align: center;
+  }
+  .header-brand {
+    color: $bluejeans-dark;
+    font-size: 80px;
+  }
+  .header-slogan {
+    margin-top: -10px;
+  }
+
+  .step-1 {
+    margin-top: 40px;
+  }
+
+  .btn {
+    &.btn-big {
+      font-size: 22px;
+    }
+  }
+
+  table {
+    background: white;
+  }
+  pre {
+    border: 0;
+  }
+}
+
+#code {
+  .col-md-6 {
+    float: none;
+    margin: 0 auto;
+  }
+  #editor {
+    height: 300px;
+    text-align: left;
+    margin-bottom: 1em;
+  }
+}

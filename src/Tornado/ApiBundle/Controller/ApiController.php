@@ -25,7 +25,7 @@ class ApiController extends Controller
     $resource
       ->setFile($file)
       ->upload()
-      ->buildOutput();
+      ->buildFromFile();
 
     $manager->persist($resource);
     $manager->flush();
@@ -38,13 +38,40 @@ class ApiController extends Controller
 
     $response = new Response(json_encode($data));
     $response->headers->set('Content-Type', 'application/json');
-
     return $response;
   }
 
   public function codeAction(Request $request)
   {
+    $resource = new Resource;
+    $manager = $this->getDoctrine()->getManager();
 
+    $resource->buildFromCode($request->request->get('code', ''));
+
+    $manager->persist($resource);
+    $manager->Flush();
+
+    $data = array(
+      'status' => 'success',
+      'message' => 'Successfully parsed code string',
+      'resource' => $resource->to('json'),
+    );
+
+    $response = new Response(json_encode($data));
+    $response->headers->set('Content-Type', 'application/json');
+    return $response;
   }
 
+  public function getAction($hash) {
+    $repo = $this->getDoctrine()
+      ->getRepository('TornadoApiBundle:Resource');
+
+    $resource = $repo->findOneBy(
+      array('hash' => $hash)
+    );
+
+    $response = new Response($resource->to('json'));
+    $response->headers->set('Content-Type', 'application/json');
+    return $response;
+  }
 }

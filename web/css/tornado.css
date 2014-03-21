@@ -1,1 +1,20 @@
 .navbar-header img { max-width: 30px; position: relative; top: -3px; }
+
+#navbar-top { background: rgba(255, 255, 255, 0.9); }
+#navbar-top a.current { background: #e6f0fc; color: #5d9cec; border-bottom: 3px solid #5d9cec; }
+#navbar-top a:hover:not(.navbar-brand) { background: #e6f0fc; border-bottom: 3px solid #8bb8f1; }
+
+body { background: url("../images/greyzz.png") 0 0 repeat; }
+
+#main { padding-top: 55px; }
+
+.index#home { text-align: center; }
+.index .header-brand { color: #4a89dc; font-size: 80px; }
+.index .header-slogan { margin-top: -10px; }
+.index .step-1 { margin-top: 40px; }
+.index .btn.btn-big { font-size: 22px; }
+.index table { background: white; }
+.index pre { border: 0; }
+
+#code .col-md-6 { float: none; margin: 0 auto; }
+#code #editor { height: 300px; text-align: left; margin-bottom: 1em; }

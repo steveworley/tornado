@@ -39,8 +39,14 @@ class PageController extends Controller
 
     $form = $this->createFormBuilder($resource)
       ->setAction($this->generateUrl('tornado_api_file'))
-      ->add('file')
-      ->add('upload', 'submit')
+      ->add('file', 'file', array(
+          'label' => NULL,
+        )
+      )
+      ->add('upload', 'submit', array(
+          'attr' => array('class' => 'btn btn-lrg'),
+        )
+      )
       ->getForm();
 
     return $this->render('TornadoSiteBundle:Page:index.html.twig', array(

@@ -1,7 +1,3 @@
-tornado_api_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: TornadoApiBundle:Default:index }
-
 # Handle file uploads.
 tornado_api_file:
   pattern: /api/file
@@ -18,7 +14,14 @@ tornado_api_code:
 
 # Resource requests
 tornado_api_resource_get:
-  pattern: /api/resource/{hash}
-  defaults: { _controller: TornadoApiBundle:Api:resource }
+  pattern: /api/r/{hash}
+  defaults: { _controller: TornadoApiBundle:Api:get }
   requirements:
     _method: GET
+
+# Remove a selected resource.
+tornado_api_resource_delete:
+  pattern: /api/r/{hash}
+  defaults: { _controller: TornadoApiBundle:Api:delete }
+  requirements:
+    _method: DELETE

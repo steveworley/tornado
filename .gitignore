@@ -11,3 +11,4 @@
 /composer.phar
 /web/uploads
 /app/db.sqlite
+/web/.sass-cache

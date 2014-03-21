@@ -1,0 +1,75 @@
+// Variables
+//------------------------------------------------------
+$alert-primary:                 $aqua-light !default;
+$alert-success:                 $grass-light !default;
+$alert-danger:                  $grapefruit-light !default;
+$alert-warning:                 $sunflower-light !default;
+
+$alert-close-color:             $black !default;
+
+$alert-link-color:              $mediumgray-light !default;
+
+
+// Exports
+//------------------------------------------------------
+
+@include exports("alert") {
+
+  /**
+   * alert
+   * --------------------------------------------------
+   */
+  .alert {
+
+      & h4 {
+          margin-bottom: 10px;
+          font-weight: bold;
+      }
+
+      &.alert-dismissable .close {
+          color: $alert-close-color;
+      }
+
+      @at-root &.alert-info {
+          background-color: lighten($alert-primary, 10%);
+          border: $alert-primary;
+      }
+      @at-root &.alert-warning {
+          background-color: lighten($alert-warning, 10%);
+          border: $alert-warning;
+      }
+      @at-root &.alert-danger {
+          background-color: lighten($alert-danger, 10%);
+          border: $alert-danger;
+      }
+      @at-root & .alert-success {
+          background-color: lighten($alert-success, 10%);
+          border: $alert-success;
+      }
+
+      & .alert-link {
+          cursor: pointer;
+          text-decoration: underline;
+          @include opacity($opacity: 65, $filter: true);
+          &:hover,
+          &:focus {
+              @include opacity($opacity: 45, $filter: true);
+          }
+      }
+
+      & .btn-link,
+      & .btn-link:hover,
+      & .btn-link:focus {
+          color: $alert-close-color;
+          @include opacity($opacity: 65, $filter: true);
+      }
+      & .btn-link:focus,
+      & .btn-link:hover {
+          text-decoration: none;
+          @include opacity($opacity: 40, $filter: true);
+      }
+  }
+
+}
+
+

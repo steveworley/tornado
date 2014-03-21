@@ -1,4 +1,9 @@
-@import "_base";
+@import
 
-// Layout styles.
-@import 'includes/header';
+  // Variable definitions for colors and fonts.
+  "bootflat/global",
+
+  // Layout styles.
+  "includes/header",
+  "includes/navigation",
+  "includes/body";

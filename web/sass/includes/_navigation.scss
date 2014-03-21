@@ -1,0 +1,14 @@
+#navbar-top {
+  background: rgba(255,255,255,.9);
+
+  & a.current {
+    background: lighten($bluejeans-light, 30%);
+    color: $bluejeans-light;
+    border-bottom: 3px solid $bluejeans-light;
+  }
+
+  & a:hover:not(.navbar-brand) {
+    background: lighten($bluejeans-light, 30%);
+    border-bottom: 3px solid lighten($bluejeans-light, 10%);
+  }
+}

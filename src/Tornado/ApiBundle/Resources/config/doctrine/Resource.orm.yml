@@ -19,4 +19,5 @@ Tornado\ApiBundle\Entity\Resource:
         path:
             type: string
             length: '255'
+
     lifecycleCallbacks: {  }
