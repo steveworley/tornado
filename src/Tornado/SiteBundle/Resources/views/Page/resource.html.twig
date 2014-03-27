@@ -1,0 +1,53 @@
+{# src/Tornado/SiteBundle/Resources/views/Page/share.html.twig #}
+{% extends 'TornadoSiteBundle::layout.html.twig' %}
+
+{% block main %}
+<div class="index" id="resource">
+  <div class="row">
+    <div class="col-md-3 navside">
+      <div class="list-group navbar navbar-fixed">
+        {% for key, value in Resource.getComplexity() %}
+          <a href="#{{ key }}" class="list-group-item {% if loop.first %}active{% endif %}">{{ key }}</a>
+        {% endfor %}
+        <a href="#Code" class="list-group-item">Code</a>
+      </div>
+    </div>
+
+    <div class="col-md-8 tab-content">
+      {% for name, source in Resource.getComplexity() %}
+        <div id="{{ name }}" class="tab-pane fade {% if loop.first %}active in{% endif %}">
+          <table class="table table-bordered table-hover">
+            <tbody>
+              {% for key, value in source %}
+                <tr>
+                  <td>{{ key }}</td>
+                  <td>{{ value }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% endfor %}
+      <div id="Code" class="tab-pane fade">
+        <pre><code>{{ File }}</code></pre>
+      </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+  <script type="text/javascript">
+    $(function() {
+      $('.navside a').click(function (e) {
+        var $link = $(this);
+        $link.parent().find('.active').removeClass('active');
+        $link.addClass('active');
+
+        // Show the tab.
+        $link.tab('show');
+        e.preventDefault()
+      })
+    });
+  </script>
+  <script>hljs.initHighlightingOnLoad();</script>
+{% endblock %}

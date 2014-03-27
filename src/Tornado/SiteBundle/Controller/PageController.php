@@ -5,10 +5,25 @@ namespace Tornado\SiteBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
-use Tornado\ApiBundle\Entity\Resource;
 
-class PageController extends Controller
+use Tornado\ApiBundle\Entity\Resource;
+use Tornado\ApiBundle\Controller\BaseApiController;
+
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
+
+
+class PageController extends BaseApiController
 {
+  public function getRepository()
+  {
+    return $this->getDoctrine()->getManager()->getRepository('TornadoApiBundle:Resource');
+  }
+
+  public function getNewEntity()
+  {
+    return new Resource;
+  }
 
   public function getPageMenu()
   {
@@ -33,28 +48,41 @@ class PageController extends Controller
     return $menu;
   }
 
+  public function getUploadForm()
+  {
+    $form = $this->createFormBuilder($this->getNewEntity());
+
+    $form->setAction($this->generateUrl('tornado_api_upload_file'))
+      ->add('file', 'file', array('label' => null))
+      ->add('upload', 'submit');
+
+    return $form;
+  }
+
+  public function getSourceForm()
+  {
+    $form = $this->createFormBuilder($this->getNewEntity());
+
+    $form->setAction($this->generateUrl('tornado_api_upload_source'))
+      ->add('code', 'textarea', array('label' => null))
+      ->add('Send source code', 'submit');
+
+    return $form;
+  }
+
   public function indexAction(Request $request)
   {
-    $resource = new Resource;
-
-    $form = $this->createFormBuilder($resource)
-      ->setAction($this->generateUrl('tornado_api_file'))
-      ->add('file', 'file', array(
-          'label' => NULL,
-        )
-      )
-      ->add('upload', 'submit', array(
-          'attr' => array('class' => 'btn btn-lrg'),
-        )
-      )
-      ->getForm();
-
     return $this->render('TornadoSiteBundle:Page:index.html.twig', array(
       'menu' => $this->getPageMenu(),
-      'form' => $form->createView(),
+      'form' => $this->getUploadForm()->getForm()->createView(),
     ));
   }
 
+  /**
+   * Show documentation.
+   *
+   * @return string
+   */
   public function documentationAction()
   {
     return $this->render('TornadoSiteBundle:Page:documentation.html.twig', array(
@@ -62,22 +90,21 @@ class PageController extends Controller
     ));
   }
 
-  public function resourceAction($hash)
+  /**
+   * Show a resource.
+   *
+   * @param string $id
+   *   The ID of a resource to show.
+   * @return string
+   */
+  public function showAction($id)
   {
-    $repo = $this->getDoctrine()
-      ->getRepository('TornadoApiBundle:Resource');
+    $resource = $this->getEntity($id);
 
-    $resource = $repo->findOneBy(
-      array('hash' => $hash)
-    );
-
-    // $query = $repo->createQueryBuilder('r')->getQuery();
-    // $resource = $query->getResult();
-
-    return $this->render('TornadoSiteBundle:Page:share.html.twig', array(
+    return $this->render('TornadoSiteBundle:Page:resource.html.twig', array(
       'menu' => $this->getPageMenu(),
       'Resource' => $resource,
-      'File' => file_get_contents($resource->getAbsolutePath()),
+      'File' => $resource->loadSourceFile(),
     ));
   }
 }

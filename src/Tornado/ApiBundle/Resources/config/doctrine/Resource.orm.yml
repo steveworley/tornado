@@ -5,19 +5,11 @@ Tornado\ApiBundle\Entity\Resource:
         id:
             type: integer
             id: true
-            generator:
-                strategy: AUTO
     fields:
-        hash:
-            type: string
-            length: '100'
-        output:
+        complexity:
             type: text
             size: medium
         created:
             type: date
-        path:
-            type: string
-            length: '255'
 
     lifecycleCallbacks: {  }

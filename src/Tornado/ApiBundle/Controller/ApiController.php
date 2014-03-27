@@ -3,75 +3,51 @@
 // src/Tornado/ApiBundle/Controller/ApiController.php
 namespace Tornado\ApiBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-
 // Use Tornado entities.
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Tornado\ApiBundle\Entity\Resource;
 
-class ApiController extends Controller
+class ApiController extends BaseApiController
 {
-
-  public function fileAction(Request $request)
+  public function getRepository()
   {
-    $resource = new Resource;
+    return $this->getDoctrine()->getManager()->getRepository('TornadoApiBundle:Resource');
+  }
+
+  public function getNewEntity()
+  {
+    return new Resource;
+  }
+
+  public function uploadFileAction(Request $request)
+  {
     $file = reset($request->files->all()['form']);
 
-    $manager = $this->getDoctrine()->getManager();
+    $resource = $this->getNewEntity();
+    $resource->setFile($file)->uploadFile()->build();
 
-    // Set the posted file to a new resource object.
-    $resource
-      ->setFile($file)
-      ->upload()
-      ->buildFromFile();
+    $em = $this->getDoctrine()->getManager();
+    $em->persist($resource);
 
-    $manager->persist($resource);
-    $manager->flush();
+    $em->flush();
 
-    $data = array(
-      'status' => 'success',
-      'message' => 'Successfully uploaded a file',
-      'resource' => $resource->to('json'),
-    );
-
-    $response = new Response(json_encode($data));
-    $response->headers->set('Content-Type', 'application/json');
-    return $response;
+    return new JsonResponse($this->getEntityForJson($resource->getId()));
   }
 
-  public function codeAction(Request $request)
+  public function uploadSourceAction(Request $request)
   {
-    $resource = new Resource;
-    $manager = $this->getDoctrine()->getManager();
+    $source = $request->request->get('code', '');
 
-    $resource->buildFromCode($request->request->get('code', ''));
+    $resource = $this->getNewEntity();
+    $resource->setSource($source)->uploadSource()->build();
 
-    $manager->persist($resource);
-    $manager->Flush();
+    $em = $this->getDoctrine()->getManager();
+    $em->persist($resource);
+    $em->flush();
 
-    $data = array(
-      'status' => 'success',
-      'message' => 'Successfully parsed code string',
-      'resource' => $resource->to('json'),
-    );
-
-    $response = new Response(json_encode($data));
-    $response->headers->set('Content-Type', 'application/json');
-    return $response;
-  }
-
-  public function getAction($hash) {
-    $repo = $this->getDoctrine()
-      ->getRepository('TornadoApiBundle:Resource');
-
-    $resource = $repo->findOneBy(
-      array('hash' => $hash)
-    );
-
-    $response = new Response($resource->to('json'));
-    $response->headers->set('Content-Type', 'application/json');
-    return $response;
+    return new JsonResponse(array('id' => $resource->getId()));
   }
 }

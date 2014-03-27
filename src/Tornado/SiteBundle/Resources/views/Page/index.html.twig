@@ -58,8 +58,7 @@
         $progressBar.css({'width': percentComplete + '%'});
       },
       success: function(data) {
-        var Resource = $.parseJSON(data.resource);
-        window.location = '/r/' + Resource.hash;
+        window.location = '/r/' + data.id;
       },
       resetForm: true
     }

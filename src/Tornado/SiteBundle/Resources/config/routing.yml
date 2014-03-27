@@ -2,9 +2,9 @@ tornado_site_homepage:
   pattern:  /
   defaults: { _controller: TornadoSiteBundle:Page:index }
 
-tornado_site_share_page:
-  pattern:  /r/{hash}
-  defaults: { _controller: TornadoSiteBundle:Page:resource }
+tornado_site_show:
+  pattern:  /r/{id}
+  defaults: { _controller: TornadoSiteBundle:Page:show }
   requirements:
     _method: GET
 

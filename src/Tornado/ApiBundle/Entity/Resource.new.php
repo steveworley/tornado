@@ -19,12 +19,12 @@ class Resource
   /**
    * @var string
    */
-  const UPLOAD_PATH =  "../../../secure";
+  constant UPLOAD_PATH = '/../../../../secure';
 
   /**
    * @var phploc
    */
-  const PHPLOC = 'php ~/Scripts/phploc.phar';
+  constant PHPLOC = 'php ~/Scripts/phploc.phar';
 
   /**
    * @var string
@@ -120,7 +120,7 @@ class Resource
    *
    * @return File
    */
-  public function getFile()
+  private function getFile()
   {
     return $this->file;
   }
@@ -170,7 +170,7 @@ class Resource
    */
   public function generateUniqueDirectory()
   {
-    return substr(uniqid(), 0, 8);
+    return substr(uniqid()), 0, 8);
   }
 
   /**
@@ -188,7 +188,7 @@ class Resource
 
     $this->getFile()->move(
       $this->getPath() . '/' . $this->getId(),
-      "code.php"
+      "code.php",
     );
 
     $this->setFile();
@@ -223,11 +223,10 @@ class Resource
   public function build()
   {
     $path = self::UPLOAD_PATH . '/' . $this->getId() . '/code.php';
-    $output = null;
-    passthru(self::PHPLOC . " $path", $output);
+    $output = passthru(self::PHPLOC . " $path");
 
     if (null === $output) {
-      throw new \Exception("Cannot lint file at {$path}");
+      throw new \Exception("Cannot lint file");
     }
 
     $string = str_replace('phploc 2.0.4 by Sebastian Bergmann.', '', $output);

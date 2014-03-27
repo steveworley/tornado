@@ -1,27 +1,35 @@
 # Handle file uploads.
-tornado_api_file:
+tornado_api_upload_file:
   pattern: /api/file
-  defaults: { _controller: TornadoApiBundle:Api:file }
+  defaults: { _controller: TornadoApiBundle:Api:uploadFile }
   requirements:
-    _method: POST
+    method: POST
 
 # Handle code blocks.
-tornado_api_code:
+tornado_api_upload_source:
   pattern: /api/code
-  defaults: { _controller: TornadoApiBundle:Api:code }
+  defaults: { _controller: TornadoApiBundle:Api:uploadSource }
   requirements:
-    _method: POST
+    method: POST
 
 # Resource requests
 tornado_api_resource_get:
-  pattern: /api/r/{hash}
-  defaults: { _controller: TornadoApiBundle:Api:get }
+  pattern: /api/r/{hash}.{_format}
+  defaults: { _controller: TornadoApiBundle:Api:get, _format: json }
   requirements:
-    _method: GET
+    method: GET
+    _format: json|xml
+
+# Property access methods
+tornado_api_resource_get_property:
+  pattern: /api/r/{hash}/{property}
+  defaults: { _controller: TornadoApiBundle:Api:getProperty }
+  requirements:
+    method: GET
 
 # Remove a selected resource.
 tornado_api_resource_delete:
   pattern: /api/r/{hash}
   defaults: { _controller: TornadoApiBundle:Api:delete }
   requirements:
-    _method: DELETE
+    method: DELETE
