@@ -1,0 +1,13 @@
+<div class="form hidden" id="code" style="text-align: center">
+  <div class="row">
+    <div class="col-md-6">
+      <div id="editor"></div>
+    </div>
+  </div>
+  <p class="upload-link"><button id="send-code" class="btn btn-info btn-big"><span class="glyphicon glyphicon-export"></span> Send source code</button><br /><a href="#upload" class="btn btn-link">or upload a file</a></p>
+  <form id="code-form" class="hidden" action="/api/code" method="POST">
+    <textarea id="code" name="code"></textarea>
+  </form>
+</div>
+
+

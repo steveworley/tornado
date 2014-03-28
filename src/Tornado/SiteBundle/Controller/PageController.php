@@ -15,16 +15,26 @@ use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 
 class PageController extends BaseApiController
 {
+
+  /**
+   * Define how to get a repository that is related to this controller.
+   */
   public function getRepository()
   {
     return $this->getDoctrine()->getManager()->getRepository('TornadoApiBundle:Resource');
   }
 
+  /**
+   * Define a new entity.
+   */
   public function getNewEntity()
   {
     return new Resource;
   }
 
+  /**
+   * Build a page menu.
+   */
   public function getPageMenu()
   {
     $current_path = $this->get('request')->getPathInfo();
@@ -48,6 +58,11 @@ class PageController extends BaseApiController
     return $menu;
   }
 
+  /**
+   * Build an upload file form.
+   *
+   * @return Form $form
+   */
   public function getUploadForm()
   {
     $form = $this->createFormBuilder($this->getNewEntity());
@@ -59,6 +74,11 @@ class PageController extends BaseApiController
     return $form;
   }
 
+  /**
+   * Build a form capable of handling source code uploads.
+   *
+   * @return Form $form
+   */
   public function getSourceForm()
   {
     $form = $this->createFormBuilder($this->getNewEntity());
@@ -70,6 +90,9 @@ class PageController extends BaseApiController
     return $form;
   }
 
+  /**
+   * Handle an index request.
+   */
   public function indexAction(Request $request)
   {
     return $this->render('TornadoSiteBundle:Page:index.html.twig', array(

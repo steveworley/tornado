@@ -54,6 +54,8 @@ abstract class BaseApiController extends Controller
     $em = $this->getDoctrine()->getManager();
     $em->persist($object);
     $em->flush();
+
+    return $this;
   }
 
   protected function updateAction($id)
