@@ -12,8 +12,7 @@
       </div>
       <p class="upload-link"><button class="upload btn btn-info btn-big"><span class="glyphicon glyphicon-cloud-upload"></span> Upload a file</button><br /><a href="#code" class="btn btn-link">or paste in some code</a></p>
       <div class="hidden">
-        {{ form(form, {method: "POST"}) }}
-        <div id="output"></div>
+        {% include 'TornadoSiteBundle::Page/partials/form.html.twig' with {'form': uploadFile, 'path': path('tornado_api_upload_file')} %}
       </div>
     </div>
 
@@ -49,8 +48,8 @@
       $(this).parents('form').ajaxSubmit(options);
     });
     $('#send-code').bind('click', function() {
-      $('#code-form textarea').val(window.editor.getSession().getValue());
-      $('#code-form').ajaxSubmit(options);
+      $('#resource_code').val(window.editor.getSession().getValue());
+      $('#resource_code').parents('form').ajaxSubmit(options);
     });
     $('.btn-link').bind('click', function() {
       var $this = $(this);

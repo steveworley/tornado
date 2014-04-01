@@ -3,15 +3,14 @@
 namespace Tornado\SiteBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 
 use Tornado\ApiBundle\Entity\Resource;
 use Tornado\ApiBundle\Controller\BaseApiController;
 
-use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
-
+// Use form types
+use Tornado\SiteBundle\Forms\Type\SourceCodeType;
+use Tornado\SiteBundle\Forms\Type\UploadFileType;
 
 class PageController extends BaseApiController
 {
@@ -57,47 +56,20 @@ class PageController extends BaseApiController
 
     return $menu;
   }
-
-  /**
-   * Build an upload file form.
-   *
-   * @return Form $form
-   */
-  public function getUploadForm()
-  {
-    $form = $this->createFormBuilder($this->getNewEntity());
-
-    $form->setAction($this->generateUrl('tornado_api_upload_file'))
-      ->add('file', 'file', array('label' => null))
-      ->add('upload', 'submit');
-
-    return $form;
-  }
-
-  /**
-   * Build a form capable of handling source code uploads.
-   *
-   * @return Form $form
-   */
-  public function getSourceForm()
-  {
-    $form = $this->createFormBuilder($this->getNewEntity());
-
-    $form->setAction($this->generateUrl('tornado_api_upload_source'))
-      ->add('code', 'textarea', array('label' => null))
-      ->add('Send source code', 'submit');
-
-    return $form;
-  }
-
   /**
    * Handle an index request.
    */
   public function indexAction(Request $request)
   {
+    $forms = array(
+      $this->createForm(new UploadFileType),
+      $this->createForm(new SourceCodeType),
+    );
+
     return $this->render('TornadoSiteBundle:Page:index.html.twig', array(
       'menu' => $this->getPageMenu(),
-      'form' => $this->getUploadForm()->getForm()->createView(),
+      'uploadFile' => $forms[0]->createView(),
+      'uploadSource' => $forms[1]->createView(),
     ));
   }
 

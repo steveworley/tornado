@@ -5,9 +5,12 @@
     </div>
   </div>
   <p class="upload-link"><button id="send-code" class="btn btn-info btn-big"><span class="glyphicon glyphicon-export"></span> Send source code</button><br /><a href="#upload" class="btn btn-link">or upload a file</a></p>
-  <form id="code-form" class="hidden" action="/api/code" method="POST">
-    <textarea id="code" name="code"></textarea>
-  </form>
+  <div class="hidden">
+    {% include 'TornadoSiteBundle::Page/partials/form.html.twig' with {
+      'form': uploadSource,
+      'path': path('tornado_api_upload_source')
+    } %}
+  </div>
 </div>
 
 
