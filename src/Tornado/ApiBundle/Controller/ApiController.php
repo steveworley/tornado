@@ -3,10 +3,7 @@
 
 namespace Tornado\ApiBundle\Controller;
 
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 // Use Tornado entities.
 use Tornado\ApiBundle\Entity\Resource;
@@ -31,32 +28,60 @@ class ApiController extends BaseApiController
   }
 
   /**
-   * Handle a file upload request.
+   * Get all the tools services that we require to build our resource.
+   * @return array
    */
-  public function uploadFileAction(Request $request)
+  public function getTools()
   {
-    $file = reset($request->files->all()['form']);
+    $names = array('complexity');
+    $tools = array();
 
-    $resource = $this->getNewEntity();
-    $resource->setFile($file)->uploadFile()->build();
+    foreach ($names as $name) {
+      $tools[] = $this->get("tornado_api.tools.{$name}");
+    }
 
-    $this->persist($resource);
+    return $tools;
+  }
 
-    return new JsonResponse($this->getEntityForJson($resource->getId()));
+  public function getFileFromRequest(Request $request)
+  {
+    $file = $request->files->all();
+
+    if (empty($file)) {
+      $file = $request->request->get('resource');
+      $file = $file['code'];
+    } else {
+      $file = reset($file);
+      $file = $file['file'];
+    }
+
+    if (empty($file)) {
+      throw $this->createNotFoundException("Cannot locate requested file");
+    }
+
+    return $file;
   }
 
   /**
-   * Handle a source code request.
+   * Handle a file upload request.
    */
-  public function uploadSourceAction(Request $request)
+  public function uploadAction(Request $request)
   {
-    $source = $request->request->get('code', '');
+    $file = $this->getFileFromRequest($request);
 
+    $filePath = $this->get('tornado_api.file_manager')->setFile($file)->createFile();
     $resource = $this->getNewEntity();
-    $resource->setSource($source)->uploadSource()->build();
+
+    foreach ($this->getTools() as $tool) {
+      $tool->setFile($filePath)->run($resource);
+    }
+
+    $resource->setFile($filePath)
+      ->setCreated(new \DateTime)
+      ->setId($this->get('tornado_api.file_manager')->getFileName());
 
     $this->persist($resource);
 
-    return new JsonResponse($this->getEntityForJson($resource->getId()));
+    return $this->sendResponse($resource->getId());
   }
 }

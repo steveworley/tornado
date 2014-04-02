@@ -4,7 +4,7 @@
 namespace Tornado\ApiBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\NoResultException;
 
@@ -19,7 +19,7 @@ abstract class BaseApiController extends Controller
       ->createQueryBuilder('e')
       ->getQuery()->getResult(Query::HYDRATE_ARRAY);
 
-    return new JsonResponse($list);
+    return new Response($list);
   }
 
   protected function readAction($id, $field = 'hash')
@@ -29,7 +29,7 @@ abstract class BaseApiController extends Controller
       return $this->createNotFoundException();
     }
 
-    return new JsonResponse($entityInstance);
+    return new Response($entityInstance);
   }
 
   protected function createAction()
@@ -46,7 +46,7 @@ abstract class BaseApiController extends Controller
 
     $this->persist($object);
 
-    return new JsonResponse($this->getEntityForJson($object->getId()));
+    return new Response($this->getEntityForJson($object->getId()));
   }
 
   protected function persist($object)
@@ -86,7 +86,7 @@ abstract class BaseApiController extends Controller
     $em->remove($object);
     $em->flush();
 
-    return new JsonResponse(array());
+    return new Response(array());
   }
 
   protected function getEntity($id)
@@ -101,19 +101,16 @@ abstract class BaseApiController extends Controller
     return false;
   }
 
-  protected function getEntityForJson($id)
+  protected function sendResponse($id, $type = 'json')
   {
-    try {
-      return $this->getRepository()->createQueryBuilder('e')
-        ->where('e.id = :id')
-        ->setParameter('id', $id)
-        ->getQuery()->getSingleResult(Query::HYDRATE_ARRAY);
-    }
-    catch (NoResultException $exception) {
-      return array('status' => 'error', 'message' => 'Could not load entity.');
-    }
+    $object = $this->getRepository()->find($id);
+    $json = $this->get('jms_serializer')->serialize($object, $type);
 
-    return false;
+    $response = new Response($json);
+    $response->headers->set('Content-Type', "application/$type");
+    $response->setStatusCode(200);
+
+    return $response;
   }
 
   protected function getJsonFromRequest()

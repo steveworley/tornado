@@ -19,7 +19,11 @@
         "sensio/framework-extra-bundle": "~3.0",
         "sensio/generator-bundle": "~2.3",
         "incenteev/composer-parameter-handler": "~2.0",
-        "symfony/filesystem": "~2.4"
+        "symfony/filesystem": "~2.4",
+        "jms/serializer-bundle": "~0.13"
+    },
+    "require-dev": {
+        "oodle/krumo": "v0.5.0"
     },
     "scripts": {
         "post-install-cmd": [

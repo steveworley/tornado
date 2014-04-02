@@ -1,3 +1,5 @@
-<form class="form hidden" method="POST" action="{{ path }}">
+<form class="form hidden" method="POST" action="{{ path }}" enctype="multipart/form-data">
   {{ form_rest(form) }}
+  <input type="submit">
+  <div id="output"></div>
 </form>

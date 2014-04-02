@@ -1,6 +1,12 @@
 parameters:
+    phploc: "php ~/Scripts/phploc.phar"
 
 services:
-  tornado_api.file_manager:
-    class: Tornado\ApiBundle\Services\FileManager
-    arguments: ['%kernel.root_dir%/../secure', @filesystem]
+    tornado_api.file_manager:
+        class: Tornado\ApiBundle\Services\FileManager
+        arguments: ['%kernel.root_dir%/../secure', @filesystem]
+
+    tornado_api.tools.complexity:
+        class: Tornado\ApiBundle\Services\Complexity
+        arguments: [@filesystem, %phploc%, "complexity"]
+

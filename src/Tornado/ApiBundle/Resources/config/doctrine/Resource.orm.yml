@@ -3,12 +3,15 @@ Tornado\ApiBundle\Entity\Resource:
     table: tornado
     id:
         id:
-            type: integer
+            type: string
             id: true
     fields:
         complexity:
             type: text
             size: medium
+        file:
+            type: string
+            length: 255
         created:
             type: date
 

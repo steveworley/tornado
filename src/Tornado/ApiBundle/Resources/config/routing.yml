@@ -1,24 +1,14 @@
 # Handle file uploads.
-tornado_api_upload_file:
-  pattern: /api/file
-  defaults: { _controller: TornadoApiBundle:Api:uploadFile }
-  requirements:
-    method: POST
-
-# Handle code blocks.
-tornado_api_upload_source:
-  pattern: /api/code
-  defaults: { _controller: TornadoApiBundle:Api:uploadSource }
-  requirements:
-    method: POST
+tornado_api_upload:
+  pattern: /api/resource
+  defaults: { _controller: TornadoApiBundle:Api:upload }
+  methods: [POST]
 
 # Resource requests
 tornado_api_resource_get:
-  pattern: /api/r/{hash}.{_format}
-  defaults: { _controller: TornadoApiBundle:Api:get, _format: json }
-  requirements:
-    method: GET
-    _format: json|xml
+  pattern: /api/r/{id}
+  defaults: { _controller: TornadoApiBundle:Api:get }
+  methods: [GET]
 
 # Property access methods
 tornado_api_resource_get_property:

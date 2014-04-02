@@ -1,6 +1,6 @@
 <?php
 // src/Tornday/ApiBundle/Services/FileManager.php
-namespace Tonado\ApiBundle\Services;
+namespace Tornado\ApiBundle\Services;
 
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 
@@ -29,7 +29,7 @@ class FileManager
   /**
    * @var string
    */
-  private $filePath = null
+  private $filePath = null;
 
   /**
    * Build a FileManager object.
@@ -38,7 +38,7 @@ class FileManager
    */
   public function __construct($path, $fileSystem)
   {
-    $this->uploadPath($path);
+    $this->setUploadPath($path);
     $this->setFileSystem($fileSystem);
   }
 
@@ -63,6 +63,15 @@ class FileManager
   public function getFile()
   {
     return $this->file;
+  }
+
+  public function getFileName()
+  {
+    $path = $this->getFilePath();
+    $parts = explode('/', $path);
+    $part = end($parts);
+
+    return str_replace('.php', '', $part);
   }
 
   /**
@@ -172,7 +181,7 @@ class FileManager
 
     $uploadDirectory = $this->createUnique();
 
-    if (!$this->getFileSystem()->exists($this->getuploadPath() . "/{$uploadDirectory}") {
+    if (!$this->getFileSystem()->exists($this->getuploadPath() . "/{$uploadDirectory}")) {
       $this->getFileSystem()->mkdir($this->getUploadPath() . "/{$uploadDirectory}");
     }
 
@@ -196,14 +205,15 @@ class FileManager
       $this->getFileSystem()->touch("{$path}/{$file}");
     }
 
-    if (is_string($this->getFile()) {
-      $this->getFilesystem()->dump("{$path}/{$file}", $this->getFile());
+    if (is_string($this->getFile())) {
+      // file_put_contents("{$path}/{$file}", $this->getFile());
+      $this->getFilesystem()->dumpFile("{$path}/{$file}", $this->getFile());
     } else {
       $this->getFile()->move($path, $file);
     }
 
     $this->setFilePath($this->getFilePath() . "/{$file}");
 
-    return $this;
+    return "{$path}/{$file}";
   }
 }

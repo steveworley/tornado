@@ -3,13 +3,14 @@ require.config({
           + window.location.pathname.split("/").slice(0, -1).join("/"),
   paths: {
     ace: 'scripts/lib/ace',
+    lib:  'scripts/app',
   }
 });
 
-$(function() {
-  require(['ace/ace'], function(ace) {
-    window.editor = ace.edit('editor');
-    editor.setTheme('ace/theme/github');
-    editor.getSession().setMode('ace/mode/php');
-  });
-})
+require(['ace/ace'], function(ace) {
+  window.editor = ace.edit('editor');
+  editor.setTheme('ace/theme/github');
+  editor.getSession().setMode('ace/mode/php');
+});
+
+require(['lib/forms']);
