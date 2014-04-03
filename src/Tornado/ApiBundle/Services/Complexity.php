@@ -1,13 +1,19 @@
 <?php
 namespace Tornado\ApiBundle\Services;
-use Tornado\ApiBundle\Services\BaseCommandService;
+use Tornado\ApiBundle\Services\CommandInterface;
 
 /**
  * Controls how to display the output from a command.
  * @see dependency_injection
  */
-class Complexity extends BaseCommandService
+class Complexity extends CommandInterface
 {
+  public function __construct($fileSystem, $command)
+  {
+    parent::__construct($fileSystem, $command);
+    $this->setType('complexity');
+  }
+
   /**
    * Take the expected output from a phploc command and format it
    * into a way that we can use.

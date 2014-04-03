@@ -12,14 +12,14 @@ tornado_api_resource_get:
 
 # Property access methods
 tornado_api_resource_get_property:
-  pattern: /api/r/{hash}/{property}
+  pattern: /api/r/{id}/{property}
   defaults: { _controller: TornadoApiBundle:Api:getProperty }
   requirements:
     method: GET
 
 # Remove a selected resource.
 tornado_api_resource_delete:
-  pattern: /api/r/{hash}
+  pattern: /api/r/{id}
   defaults: { _controller: TornadoApiBundle:Api:delete }
   requirements:
     method: DELETE

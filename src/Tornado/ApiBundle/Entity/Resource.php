@@ -133,6 +133,11 @@ class Resource
     return FALSE;
   }
 
+  /**
+   * Attempt to return the output of the a source file.
+   *
+   * @return string
+   */
   public function loadSourceFile()
   {
     if (null === $this->getFile() || !file_exists($this->getFile())) {

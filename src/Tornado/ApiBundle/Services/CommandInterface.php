@@ -3,18 +3,17 @@
 namespace Tornado\ApiBundle\Services;
 use Symfony\Component\Filesystem\Filesystem;
 
-abstract class BaseCommandService
+abstract class CommandInterface
 {
   private $fileSystem;
   private $file;
   private $command;
   private $type;
 
-  public function __construct(FileSystem $fileSystem, $command, $type)
+  public function __construct(FileSystem $fileSystem, $command)
   {
     $this->setFileSystem($fileSystem);
     $this->setCommand($command);
-    $this->setType($type);
   }
 
   public function setFile($file)

@@ -27,22 +27,6 @@ class ApiController extends BaseApiController
     return new Resource;
   }
 
-  /**
-   * Get all the tools services that we require to build our resource.
-   * @return array
-   */
-  public function getTools()
-  {
-    $names = array('complexity');
-    $tools = array();
-
-    foreach ($names as $name) {
-      $tools[] = $this->get("tornado_api.tools.{$name}");
-    }
-
-    return $tools;
-  }
-
   public function getFileFromRequest(Request $request)
   {
     $file = $request->files->all();
@@ -72,8 +56,8 @@ class ApiController extends BaseApiController
     $filePath = $this->get('tornado_api.file_manager')->setFile($file)->createFile();
     $resource = $this->getNewEntity();
 
-    foreach ($this->getTools() as $tool) {
-      $tool->setFile($filePath)->run($resource);
+    foreach ($this->get('tornado_api.command_bag')->getCommands() as $command) {
+      $command->setFile($filePath)->run($resource);
     }
 
     $resource->setFile($filePath)

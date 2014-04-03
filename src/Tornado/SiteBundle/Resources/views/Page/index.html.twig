@@ -45,7 +45,7 @@
       $('#resource_file').trigger('click');
     });
     $('#resource_file').bind('change', function() {
-      // $(this).parents('form').ajaxSubmit(options);
+      $(this).parents('form').ajaxSubmit(options);
     });
     $('#send-code').bind('click', function() {
       $('#resource_code').val(window.editor.getSession().getValue());
