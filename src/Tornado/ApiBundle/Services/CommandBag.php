@@ -11,11 +11,14 @@ namespace Tornado\ApiBundle\Services;
 
 class CommandBag
 {
+  /**
+   * @var array
+   */
   private $commands;
 
   /**
    * Public constructor for the CommandBag.
-   * Ensures that $this->command is instantiated as an array.
+   * Ensures that $this->commands is instantiated as an array.
    */
   public function __construct()
   {
@@ -25,7 +28,8 @@ class CommandBag
   /**
    * Add \Command
    *
-   * @param CommandBase $command [description]
+   * @param CommandInterface
+   * @return CommandBag
    */
   public function addCommand(CommandInterface $command)
   {
@@ -33,15 +37,13 @@ class CommandBag
     return $this;
   }
 
+  /**
+   * Get \Commands
+   *
+   * @return array
+   */
   public function getCommands()
   {
     return $this->commands;
-  }
-
-  public function getCommand($alias)
-  {
-    if (array_key_exists($alias, $this->commands)) {
-      return $this->commands[$alias];
-    }
   }
 }

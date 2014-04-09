@@ -109,6 +109,7 @@ abstract class BaseApiController extends Controller
     $response = new Response($json);
     $response->headers->set('Content-Type', "application/$type");
     $response->setStatusCode(200);
+    $response->setSharedMaxAge(3600);
 
     return $response;
   }

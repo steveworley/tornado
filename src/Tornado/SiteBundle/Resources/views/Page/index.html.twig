@@ -10,11 +10,10 @@
       <div class="progress progress-striped hidden" id="file-upload-progress">
         <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
       </div>
-      <p class="upload-link"><button class="upload btn btn-info btn-big"><span class="glyphicon glyphicon-cloud-upload"></span> Upload a file</button><br /><a href="#code" class="btn btn-link">or paste in some code</a></p>
-      <div>
-        {% include 'TornadoSiteBundle::Page/partials/form.html.twig' with {'form': uploadFile, 'path': path('tornado_api_upload')} %}
-      </div>
+      <p class="upload-link"><button class="upload btn btn-info btn-big" data-bindto="resource_file"><span class="glyphicon glyphicon-cloud-upload"></span> Upload a file</button><br /><a href="#code" class="btn btn-link">or paste in some code</a></p>
     </div>
+
+    {% include 'TornadoSiteBundle::Page/partials/form.html.twig' with {'form': uploadFile, 'path': path('tornado_api_upload')} %}
 
     {# Include the source code file #}
     {% include 'TornadoSiteBundle::Page/source_code.html.twig' %}
@@ -22,40 +21,5 @@
 {% endblock %}
 
 {% block javascript %}
-<script type="text/javascript" src="{{ asset('scripts/app.js') }}" data-libraries="forms"></script>
-<script>
-  $(function() {
-    var options = {
-      target: "#output",
-      beforeSubmit: function() {
-        console.log('beforeSubmit validate files');
-      },
-      uploadProgress: function(event, position, total, percentComplete) {
-        var $progressBar = $('#file-upload-progress .progress-bar');
-        $progressBar.parent().removeClass('hidden').addClass('active');
-        $progressBar.css({'width': percentComplete + '%'});
-      },
-      success: function(data) {
-        window.location = '/r/' + data.id;
-      },
-      resetForm: true
-    }
-
-    $('.btn.upload').bind('click', function() {
-      $('#resource_file').trigger('click');
-    });
-    $('#resource_file').bind('change', function() {
-      $(this).parents('form').ajaxSubmit(options);
-    });
-    $('#send-code').bind('click', function() {
-      $('#resource_code').val(window.editor.getSession().getValue());
-      $('#resource_code').parents('form').ajaxSubmit(options);
-    });
-    $('.btn-link').bind('click', function() {
-      var $this = $(this);
-      $this.parents('.form').addClass('hidden');
-      $($this.attr('href')).removeClass('hidden');
-    });
-  })
-</script>
+  <script type="text/javascript" src="{{ asset('scripts/app.js') }}" data-libraries="ace/ace,lib/binds,lib/forms"></script>
 {% endblock %}

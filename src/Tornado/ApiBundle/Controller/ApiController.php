@@ -27,6 +27,18 @@ class ApiController extends BaseApiController
     return new Resource;
   }
 
+  /**
+   * Locate file from request payload.
+   *
+   * This function will attempt to locate a payload item suitable to use as the
+   * base of a new Resource. This will attempt to take a $_FILE or a string
+   * send via $_POST and will return them.
+   *
+   * If this function does not locate a suitable sent object it will terminate
+   * throw a 404.
+   *
+   * @see createNotFoundException
+   */
   public function getFileFromRequest(Request $request)
   {
     $file = $request->files->all();

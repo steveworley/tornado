@@ -120,6 +120,9 @@ class Resource
 
   /**
    * Global setter.
+   *
+   * This will attempt to set any given property on this resource. It requires
+   * that an associated setter has been defined.
    */
   public function set($property, $value)
   {

@@ -6,14 +6,17 @@
  */
 $(function() {
 
-  // Provide some basic options for the $.ajaxSubmit plugin.
   var
-  $errorDiv: $("<div>", {
+
+  // The error div will be displayed if the $.ajax form submit does not complete.
+  $errorDiv = $("<div>", {
     class: "alert alert-danger",
     content: ""
   }).html("<strong>Oh snap!</strong>: We could not process that file - please try again."),
 
+  // Provide some basic options for the $.ajaxSubmit plugin.
   options = {
+
     // This is a DOM element - this is required to exist otherwise the ajax submit will not work.
     target: "#output",
 
@@ -30,14 +33,12 @@ $(function() {
         $('body').prepend($errorDiv);
         return;
       }
+
       window.location = '/r/' + data.id;
     },
+
     resetForm: true
   };
-
-  $('.btn.upload').bind('click', function() {
-    $('#resource_file').trigger('click');
-  });
 
   $('#resource_file').bind('change', function() {
     $(this).parents('form').ajaxSubmit(options);
