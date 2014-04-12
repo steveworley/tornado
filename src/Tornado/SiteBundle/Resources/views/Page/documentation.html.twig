@@ -12,11 +12,14 @@
     </div>
 
     <div class="nine columns">
-      <section id="getting-started" class="documentation">
-        <h3>Getting Started...</h3>
-        <p>Noooooo! What's with you kids? Every other day it's food, food, food. Alright, I'll get you some stupid food. Morbo will now introduce tonight's candidates&hellip; PUNY HUMAN NUMBER ONE, PUNY HUMAN NUMBER TWO, and Morbo's good friend, Richard Nixon. Ow, my spirit!</p>
-        <p>Five hours? Aw, man! Couldn't you just get me the death penalty? Oh sure! Blame the wizards! Goodbye, friends.  I never thought I'd die like this.  But I always really hoped. Oh, how awful. Did he at least die painlessly? &hellip;To shreds, you say. Well, how is his wife holding up? &hellip;To shreds, you say.</p>
-      </section>
+      <a href="https://github.com/login/oauth/authorize?client_id=b295da66e5aab5e8712a" class="btn btn-danger">Login with GitHub</a>
+      <pre>
+        {{ dump(body) }}
+      </pre>
+    </div>
+
+    <div class="nine columns hidden">
+      {% include 'TornadoSiteBundle::Page/docs/how-to-use.html.twig' %}
     </div>
   </div>
 {% endblock %}

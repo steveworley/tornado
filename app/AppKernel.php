@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new JMS\SerializerBundle\JMSSerializerBundle($this),
             new Tornado\SiteBundle\TornadoSiteBundle(),
             new Tornado\ApiBundle\TornadoApiBundle(),
+            new Tornado\UserBundle\TornadoUserBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

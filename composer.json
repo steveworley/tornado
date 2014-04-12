@@ -20,7 +20,8 @@
         "sensio/generator-bundle": "~2.3",
         "incenteev/composer-parameter-handler": "~2.0",
         "symfony/filesystem": "~2.4",
-        "jms/serializer-bundle": "~0.13"
+        "jms/serializer-bundle": "~0.13",
+        "guzzle/guzzle": "v3.8"
     },
     "require-dev": {
         "oodle/krumo": "v0.5.0"

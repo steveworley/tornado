@@ -1,0 +1,15 @@
+parameters:
+
+    # Secret stuff for GitHub oAuth.
+    github:
+        client_id: b295da66e5aab5e8712a
+        client_secret: 9e90f83c7fc56cb07430f45b04043fc972101586
+        auth_url: https://github.com/login/oauth/access_token
+        user_url: https://api.github.com/user
+
+    facebook:
+
+services:
+    tornado.oauth.github:
+        class: Tornado\UserBundle\Services\Github
+        arguments: [@session, %github%]

@@ -1,0 +1,7 @@
+tornado_user_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: TornadoUserBundle:Default:index }
+
+tornado_user_new:
+    pattern: /users/new
+    defaults: { _controller: TornadoUserBundle:Default:new }

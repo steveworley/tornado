@@ -11,6 +11,7 @@ use Tornado\ApiBundle\Controller\BaseApiController;
 // Use form types
 use Tornado\SiteBundle\Forms\Type\SourceCodeType;
 use Tornado\SiteBundle\Forms\Type\UploadFileType;
+use Guzzle\Http\Client;
 
 class PageController extends BaseApiController
 {
@@ -78,10 +79,40 @@ class PageController extends BaseApiController
    *
    * @return string
    */
-  public function documentationAction()
+  public function documentationAction(Request $request)
   {
+    if (($code = $request->query->get('code'))) {
+      $token = $this->get('tornado.oauth.github')->getAccessToken($request);
+
+      $body = $token;
+
+      // $oauth = "https://github.com/login/oauth/access_token";
+      // $client = new Client();
+      // $request = $client->post($oauth, null, array(
+      //     'client_id' => 'b295da66e5aab5e8712a',
+      //     'client_secret' => '9e90f83c7fc56cb07430f45b04043fc972101586',
+      //     'code' => $_GET['code'],
+      //   )
+      // );
+      // $response = $request->send();
+      // $body = $response->getBody(TRUE);
+      // $body = explode("&", $body);
+      // foreach ($body as &$b) {
+      //   $b = explode('=', $b);
+      //   if (count($b) == 2) {
+      //     $output[$b[0]] = $b[1];
+      //   }
+      // }
+      // $api = $client->get("https://api.github.com/user?access_token=" . $output['access_token']);
+      // $body = $api->send();
+      // $body = $body->json();
+      // $this->get('request')->getSession()->set('user', $body);
+    } else {
+      $body = $this->get('tornado.oauth.github');
+    }
     return $this->render('TornadoSiteBundle:Page:documentation.html.twig', array(
       'menu' => $this->getPageMenu(),
+      'body' => $body,
     ));
   }
 

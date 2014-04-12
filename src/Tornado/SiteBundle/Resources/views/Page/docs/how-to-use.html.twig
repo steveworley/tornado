@@ -1,0 +1,35 @@
+{# How to use the app #}
+<h3 id="how-to-use" class="section-title">How to use the app?</h3>
+
+<p>The application allows you to check code complexity in one of two ways - you can;</p>
+
+<ol>
+  <li><a href="#how-to-upload">Upload a file</a>, or;</li>
+  <li><a href="#how-to-source">Upload source code directly</a></li>
+</ol>
+
+<p>Both methods are accessible from the <a href="/">home page</a>. To upload a file simply click the <em>Upload a file</em> button and follow the file upload dialog that your browser offers. To upload source code directly, you first need to click the <em>or paste in some code</em> link to be shown a handy text editor (this requires Javascript).</p>
+
+<div class="panel-group" id="ht-accordion">
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <h4 class="panel-title" id="how-to-upload"><a data-toggle="collapse" data-parent="#ht-accordion" href="#ht-upload">How to upload</a></h4>
+    </div>
+    <div id="ht-upload" class="panel-collapse collapse">
+      <p>To being a file upload click the <em>upload a file</em> button this will prompt you with your browsers file manager dialog window. From there you can choose any file with a .php extension from your local hard drive to send.</p>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <h4 class="panel-title" id="how-to-source"><a data-toggle="collapse" data-parent="#ht-accordion" href="#ht-source">How to upload source code</a></h4>
+    </div>
+    <div id="ht-source" class="panel-collapse collapse">
+      <p>To upload source code you first need to click the <em>or paste in some code</em> link to show a text editor box - this box will work like your favourite text editor and uses the Ace library. There are some validation restrictions around the code you paste in:</p>
+      <ul>
+        <li>You must include an opening php tag <code>&lt;?php</code></li>
+        <li>You must <strong>not</strong> inlcude a closing php tag <code>?&gt;</code></li>
+      </ul>
+      <p>This code is never executed on the server and simple has an range of code complexity and linting tools ran over it to collate the required information</p>
+    </div>
+  </div>
+</div>
