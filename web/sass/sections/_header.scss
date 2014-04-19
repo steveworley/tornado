@@ -1,0 +1,39 @@
+//
+// @file header.scss
+// Controls the header of the website.
+//
+// @author: Steve Worley <sj.worley88@gmail.com>
+//
+#header {
+  padding: 10px 0;
+}
+
+.logo {
+  font-size: $base-font-size + 6;
+  line-height: $base-line-height;
+  padding: 10px 0;
+  text-transform: lowercase;
+}
+
+// |---------------------------------
+// | Home page header styles.
+// |---------------------------------
+#home-page-header {
+  text-align: center;
+  .site-title {
+    font-size: $base-font-size * 4;
+  }
+  p {
+    &:before {
+      @extend %underline;
+      left: 40%;
+      right: 40%;
+      bottom: -15px;
+    }
+  }
+}
+
+
+// |---------------------------------
+// | User page header styles.
+// |---------------------------------

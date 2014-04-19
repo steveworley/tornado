@@ -1,0 +1,25 @@
+{% extends '::base.html.twig' %}
+
+{% block main %}
+  <div class="container user-dashboard">
+    <div class="user-dashboard-header row">
+      <div class="col-md-6"><span class="user-name">{{ user.name }}</span> <span class="user-email">{{user.email}}</span></div>
+      <div class="col-md-3"><a href="#">Projects</a></div>
+      <div class="col-md-3"><a href="#">Complexity</a></div>
+    </div>
+    <div class="user-main row">
+      <div class="col-md-2">
+        <nav>
+          <ul class="nav nav-vertical">
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#profile">Profile</a></li>
+            <li><a href="#x">Statistics</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="col-md-10">
+        <h1>Recent uploads:</h1>
+      </div>
+    </div>
+  </div>
+{% endblock %}

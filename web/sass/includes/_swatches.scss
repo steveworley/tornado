@@ -1,0 +1,132 @@
+//
+// @file Swatches.scss
+// TColor swatch combination.
+//
+// @author: Steve Worley <sj.worley88@gmail.com>
+//
+$bg-height: 60px;
+
+
+%swatch-base {
+  background: $turquoise-dark;
+  color: rgba(255,255,255,.70);
+  padding: $bg-height 0 ($bg-height * 2);
+  position: relative;
+
+  &:after {
+    content: " ";
+    background: #fff;
+    bottom: -$bg-height;
+    height: $bg-height + ($bg-height / 2);
+    position: absolute;
+    width: 110%;
+    left: -5%;
+    z-index: 1;
+    transform: rotate(2deg);
+    -webkit-transform: rotate(2deg);
+  }
+
+  .container {
+    position: relative;
+    z-index: 2;
+  }
+}
+
+.swatch-turquoise-white,
+.swatch-red-white,
+.swatch-orange-white,
+.swatch-blue-white,
+.swatch-white-black {
+  @extend %swatch-base;
+}
+.swatch-red-white {
+  background: $red-dark;
+}
+.swatch-orange-white {
+  background: $orange-dark;
+}
+.swatch-blue-white {
+  background: $blue-dark;
+}
+.swatch-white-black {
+  background: #fff;
+  color: #777;
+}
+
+#header {
+  &.swatch-turquoise-white,
+  &.swatch-red-white,
+  &.swatch-orange-white,
+  &.swatch-blue-white {
+    &:after { display: none; }
+  }
+  &.swatch-turquoise-white {
+    background: rgba($turquoise-dark, .95);
+    @include single-box-shadow(rgba($turquoise-dark, .3), 0, 4px, 0, 0);
+  }
+  &.swatch-red-white {
+    background: rgba($red-dark, .95);
+    @include single-box-shadow(rgba($red-dark, .3), 0, 4px, 0, 0);
+  }
+  &.swatch-orange-white {
+    background: rgba($orange-dark, .95);
+    @include single-box-shadow(rgba($orange-dark, .3), 0, 4px, 0, 0);
+  }
+  &.swatch-blue-white {
+    background: rgba($blue-dark, .95);
+    @include single-box-shadow(rgba($blue-dark, .3), 0, 4px, 0, 0);
+  }
+}
+
+
+// |------------------------------------------
+// | Accents for a swatch.
+// |------------------------------------------
+
+%accent-base {
+  .first-row {
+    p:last-child {
+      position: relative;
+      margin-bottom: 2em;
+      &:after {
+        @extend %underline;
+        left: 35%;
+        right: 35%;
+        bottom: -10px;
+      }
+    }
+  }
+}
+
+.accent-blue,
+.accent-red,
+.acccent-orange,
+.accent-turquoise,
+.accent-black {
+  @extend %accent-base;
+}
+.accent-blue {
+  .first-row p:last-child:after {
+    background: $blue-dark;
+  }
+}
+.accent-red {
+  .first-row p:last-child:after {
+    background: $red-dark;
+  }
+}
+.accent-orange {
+  .first-row p:last-child:after {
+    background: $orange-dark;
+  }
+}
+.accent-turquoise {
+  .first-row p:last-child:after {
+    background: $turquoise-dark;
+  }
+}
+.accent-black {
+  .first-row p:last-child:after {
+    background: #000;
+  }
+}

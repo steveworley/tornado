@@ -1,0 +1,26 @@
+//
+// @file fonts.scss
+// Font face declarations and variable assignment.
+//
+// @author: Steve Worley <sj.worley88@gmail.com>
+//
+
+$base-font-size: 14px;
+$base-line-height: $base-font-size * 1.234;
+
+$sans-serif: "VDS", sans-serif;
+$serif: "Georgia", serif;
+$mono: "Source Code Pro", monospace;
+
+
+// ------------------------------------------
+//
+
+// Define a mixin to calculate the font size.
+@mixin font-size(mutliplier) {
+  font-size: $base-font-size * multiplier;
+}
+
+h1 {
+  font-size: $base-font-size;
+}

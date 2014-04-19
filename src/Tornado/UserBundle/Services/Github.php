@@ -40,22 +40,26 @@ class Github extends Oauth
     return $access_token;
   }
 
-  public function getUserData()
+  public function getUserData($access_token)
   {
-    $github_user = $this->get('client')->get($this->get('user_url'));
-    $github_user->setHeader('Authorization', "token $access_token");
+    // $access_token = $this->get('access_token');
 
-    $response = $github_user->send();
+    $user_data = $this->get('client')->get($this->get('user_url'));
+    $user_data->setHeader('Authorization', "token $access_token");
+
+    $response = $user_data->send();
 
     return $response->json();
   }
 
   public function getRepositories($access_token)
   {
-    $github_user = $this->get('client')->get($this->get('user_url') . "/repos");
-    $github_user->setHeader('Authorization', "token $access_token");
+    // $access_token = $this->get('access_token');
 
-    $response = $github_user->send();
+    $user_repos = $this->get('client')->get($this->get('user_url') . "/repos");
+    $user_repos->setHeader('Authorization', "token $access_token");
+
+    $response = $user_repos->send();
 
     return $response->json();
   }

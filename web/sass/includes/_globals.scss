@@ -1,0 +1,45 @@
+//
+// @file globals.scss
+// Global styles that do not belong in any other place.
+//
+// @author: Steve Worley <sj.worley88@gmail.com>
+//
+
+// |---------------------------------
+// | Alignment classes.
+// |---------------------------------
+.align-right {
+  float: right;
+  text-align: right;
+}
+.align-left {
+  float: left;
+  text-align: left;
+}
+.align-centre {
+  margin: 0 auto;
+  float: none;
+}
+
+.text-right {
+  text-align: right!important;
+}
+.text-left {
+  text-align: left!important;
+}
+.text-centre {
+  text-align: center!important;
+}
+
+// |---------------------------------
+// | Underlines
+// |---------------------------------
+%underline {
+  background: #fff;
+  bottom: 5px;
+  content: " ";
+  height: 2px;
+  right: 20px;
+  left: 20px;
+  position: absolute;
+}

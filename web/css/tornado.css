@@ -1,9 +1,5 @@
 .navbar-header img { max-width: 30px; position: relative; top: -3px; }
 
-#navbar-top { background: rgba(255, 255, 255, 0.9); }
-#navbar-top a.current { background: #e6f0fc; color: #5d9cec; border-bottom: 3px solid #5d9cec; }
-#navbar-top a:hover:not(.navbar-brand) { background: #e6f0fc; border-bottom: 3px solid #8bb8f1; }
-
 body { background: url("../images/greyzz.png") 0 0 repeat; }
 
 #main { padding-top: 55px; }
@@ -18,3 +14,10 @@ body { background: url("../images/greyzz.png") 0 0 repeat; }
 
 #code .col-md-6 { float: none; margin: 0 auto; }
 #code #editor { height: 300px; text-align: left; margin-bottom: 1em; }
+
+.user-dashboard { font-family: "Open Sans", sans-serif; }
+.user-dashboard h1, .user-dashboard h2, .user-dashboard h3 { font-weight: normal; }
+.user-dashboard .user-dashboard-header { background-color: #37bc9b; border-bottom: 3px solid #31a88b; color: rgba(255, 255, 255, 0.7); border-top-left-radius: 5px; border-top-right-radius: 5px; padding: 1em 0; }
+.user-dashboard .user-dashboard-header .user-name { font-size: 22px; }
+.user-dashboard .user-dashboard-header .user-email { display: block; font-style: italic; position: relative; top: -5px; }
+.user-dashboard .user-main { border-bottom-right-radius: 5px; border-bottom-left-radius: 5px; border: 3px solid #ccd1d9; border-top: 0; }

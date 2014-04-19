@@ -1,14 +1,37 @@
-#navbar-top {
-  background: rgba(255,255,255,.9);
+//
+// @file navigation.scss
+// Control the different navigation blocks around the page
+//
+// @author: Steve Worley <sj.worley88@gmail.com>
+//
+$primary-nav: #fff;
 
-  & a.current {
-    background: lighten($bluejeans-light, 30%);
-    color: $bluejeans-light;
-    border-bottom: 3px solid $bluejeans-light;
+nav {
+  ul,
+  li,
+  a {
+    display: inline-block;
   }
 
-  & a:hover:not(.navbar-brand) {
-    background: lighten($bluejeans-light, 30%);
-    border-bottom: 3px solid lighten($bluejeans-light, 10%);
+  a {
+    padding: 10px 5px;
+  }
+}
+
+#primary {
+  a {
+    color: rgba($primary-nav, .4);
+    font-weight: 300;
+    position: relative;
+    text-transform: lowercase;
+    text-decoration: none;
+
+    &.active,
+    &:hover {
+      &:before {
+        @extend %underline;
+        background: rgba($primary-nav, 0.4);
+      }
+    }
   }
 }

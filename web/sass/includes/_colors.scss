@@ -1,0 +1,47 @@
+//
+// @file colors.scss
+// Color variable assignment.
+//
+// @author: Steve Worley <sj.worley88@gmail.com>
+//
+
+$turquoise-light: #1abc9c;
+$turquoise-dark: #16a085;
+
+$green-light: #2ecc71;
+$green-dark: #27ae60;
+
+$blue-light: #3498db;
+$blue-dark: #2980b9;
+
+$purple-light: #9b59b6;
+$purple-dark: #8344ad;
+
+$midnight-light: #34495e;
+$midnight-dark: #2c3e50;
+
+$yellow-light: #f1c40f;
+$yellow-dark: #f39c12;
+
+$orange-light: #e67e22;
+$orange-dark: #d35400;
+
+$red-light: #e74c3c;
+$red-dark: #c0392b;
+
+$silver-light: #3cf0f1;
+$silver-dark: #bdc3c7;
+
+$grey-light: #95a5a6;
+$grey-dark: #7f8c8d;
+
+// |-----------------------------------
+// | Helper functions for colours.
+// |-----------------------------------
+@function lighten-color($color) {
+  @return lighten($color, 10%);
+}
+
+@function darken-color($color) {
+  @return darken($color, 10%);
+}

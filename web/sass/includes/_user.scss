@@ -1,0 +1,43 @@
+//
+// Styles pertaining to the user dashboard.
+// @author: Steve Worley <sj.worley88@gmail.com>
+//
+
+.user-dashboard {
+  font-family: "Open Sans", sans-serif;
+
+  h1, h2, h3 {
+    font-weight: normal;
+  }
+
+
+  //
+  // Header styles
+  //
+  .user-dashboard-header {
+    background-color: $mint-dark;
+    border-bottom: 3px solid darken($mint-dark, 5%);
+    color: rgba(255,255,255,.7);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    padding: 1em 0;
+
+    .user-name {
+      font-size: 22px;
+    }
+
+    .user-email {
+      display: block;
+      font-style: italic;
+      position: relative;
+      top: -5px;
+    }
+  }
+
+  .user-main {
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border: 3px solid $mediumgray-light;
+    border-top: 0;
+  }
+}

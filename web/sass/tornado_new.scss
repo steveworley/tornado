@@ -1,0 +1,26 @@
+//
+// @file Tornado.scss
+// This is the main entry point for styles for the page.
+//
+// @author: Steve Worley <sj.worley88@gmail.com>
+//
+
+@import
+  "compass/reset",
+  "compass/css3",
+
+  // Functions to return selectors.
+  "includes/functions",
+
+  // Includes for base styles.
+  "includes/colors",
+  "includes/fonts",
+  "includes/globals",
+  "includes/swatches",
+
+  "includes/buttons",
+  "includes/navigation",
+
+  // Sections
+  "sections/header";
+
