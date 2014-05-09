@@ -1,0 +1,39 @@
+//
+// @file try.scss
+// Homepage try block
+//
+// @author: Steve Worley <sj.worley88@gmail.com>
+//
+#file-title {
+  padding-top: 50px;
+  .box {
+    padding: 25px 0;
+    font-size: 36px;
+    font-weight: 300;
+  }
+}
+
+#file-nav {
+  a {
+    display: inline-block;
+    padding: 5px 15px;
+    &:hover {
+      background: $blue-light;
+      text-decoration: none;
+    }
+    &.active {
+       background: #fff;
+       color: #333;
+       &:hover {
+        background: #fff;
+       }
+    }
+  }
+}
+
+.tab-pane {
+  display: none;
+  &.active {
+    display: block;
+  }
+}

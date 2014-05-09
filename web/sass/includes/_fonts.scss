@@ -8,7 +8,7 @@
 $base-font-size: 15px;
 $base-line-height: $base-font-size * 2;
 
-$sans-serif: 'Raleway', sans-serif;
+$sans-serif: 'Source Sans Pro', sans-serif;
 $serif: "Georgia", serif;
 $mono: "Source Code Pro", monospace;
 
@@ -54,4 +54,29 @@ a {
   &:hover {
     text-decoration: underline;
   }
+}
+
+pre, code {
+  font-family: $mono;
+  font-size: 12px;
+  line-height: normal;
+}
+
+.text-white {
+  color: #fff;
+}
+.text-green {
+  color: $green-light;
+}
+.text-red {
+  color: $red-light;
+}
+.text-blue {
+  color: $blue-light;
+}
+.text-orange {
+  color: $orange-light;
+}
+.text-purple {
+  color: $purple-light;
 }

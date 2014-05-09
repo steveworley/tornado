@@ -1,22 +1,34 @@
-{# src/Tornado/SiteBundle/Resources/views/Page/share.html.twig #}
+{# src/Tornado/SiteBundle/Resources/views/Page/resource.html.twig #}
 {% extends 'TornadoSiteBundle::layout.html.twig' %}
 
-{% block main %}
-<div class="index" id="resource">
-  <div class="row">
-    <div class="col-md-3 navside">
-      <div class="list-group navbar navbar-fixed">
-        {% for key, value in Resource.getComplexity() %}
-          <a href="#{{ key }}" class="list-group-item {% if loop.first %}active{% endif %}">{{ key }}</a>
-        {% endfor %}
-        <a href="#Code" class="list-group-item">Code</a>
-      </div>
-    </div>
+{% block stylesheets %}
+  <link rel="stylesheet" href="{{ asset('css/styles/tomorrow-night-eighties.css') }}" />
+{% endblock %}
 
-    <div class="col-md-8 tab-content">
-      {% for name, source in Resource.getComplexity() %}
-        <div id="{{ name }}" class="tab-pane fade {% if loop.first %}active in{% endif %}">
-          <table class="table table-bordered table-hover">
+{% block main %}
+
+<section class="section swatch-blue-white" id="file-title">
+  <div class="container">
+    {% include 'TornadoSiteBundle::Page/resource/total.html.twig' with {'total': Resource.getTotalComplexity} %}
+    <h1 class="grid-10">{{ Resource.getFilename }}</h1>
+  </div>
+</section>
+
+<section class="section swatch-blue-white" id="file-nav">
+  <div class="container text-centre">
+    {% for key, value in Resource.getComplexity() %}
+      <a href="#{{ key }}" data-tabs="#{{ key }}" class="tab-link {% if loop.first %}active{% endif %}">{{ key }}</a>
+    {% endfor %}
+    <a href="#Code" data-tabs="#Code" class="tab-link">Code</a>
+  </div>
+</section>
+
+<section class="section swatch-white-black" id="file-output">
+  <div class="container text-centre">
+    {% for name, source in Resource.getComplexity() %}
+        <div id="{{ name }}"  data-tabs-content="true" class="tab-pane grid-8 align-centre {% if loop.first %}active{% endif %}">
+          <h3 class="text-left">{{ name }}</h3>
+          <table class="table table-bordered table-hover text-left" width="100%">
             <tbody>
               {% for key, value in source %}
                 <tr>
@@ -28,26 +40,15 @@
           </table>
         </div>
       {% endfor %}
-      <div id="Code" class="tab-pane fade">
+      <div id="Code" data-tabs-content="true" class="tab-pane fade text-left grid-8 align-centre">
+        <h3>Code</h3>
         <pre><code>{{ File }}</code></pre>
       </div>
   </div>
-</div>
+</section>
 {% endblock %}
 
-{% block javascript %}
-  <script type="text/javascript">
-    $(function() {
-      $('.navside a').click(function (e) {
-        var $link = $(this);
-        $link.parent().find('.active').removeClass('active');
-        $link.addClass('active');
-
-        // Show the tab.
-        $link.tab('show');
-        e.preventDefault()
-      })
-    });
-  </script>
+{% block script %}
+  <script type="text/javascript" src="{{ asset('scripts/app.js') }}" data-libraries="lib/menu,lib/tab,lib/forms"></script>
   <script>hljs.initHighlightingOnLoad();</script>
 {% endblock %}

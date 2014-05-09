@@ -49,10 +49,12 @@ $(function() {
     $('#resource_code').parents('form').ajaxSubmit(options);
   });
 
-  $('.btn-link').bind('click', function() {
-    var $this = $(this);
-    $this.parents('.form').toggleClass('hidden');
-    $($this.attr('href')).toggleClass('hidden');
+  $('#link-toggle').bind('click', function() {
+    var $el = $(this),
+        $toggle = $el.parents('section').find('[data-toggle]');
+
+    $toggle.toggle();
+    $el.text($toggle.filter(':visible').data('link'));
   });
 
 });

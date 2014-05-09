@@ -1,0 +1,81 @@
+//
+// @file user.scss
+// User dashboard.
+//
+// @author: Steve Worley <sj.worley88@gmail.com>
+//
+#dashboard-header {
+  position: relative;
+  padding: 70px 0 20px;
+
+  &:before {
+    @include opacity(.5);
+
+    background: url(../images/background/IMG_3242.jpg) no-repeat bottom;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    content: " ";
+    height: 100%;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+
+  h1 {
+    padding: 30px 0 0;
+    line-height: normal;
+  }
+  p {
+    line-height: normal;
+    padding-bottom: 50px;
+  }
+  #dashboard-image {
+    img {
+      max-width: 100%;
+      box-shadow: 0px 2px 2px rgba(0,0,0,.3);
+    }
+  }
+}
+
+.dashboard-preview {
+  float: left;
+
+  header {
+    a {
+      color: #fff;
+      font-size: $base-font-size;
+      i {
+        position: relative;
+        top: 1px;
+      }
+    }
+  }
+}
+
+#dashboard {
+  padding-top: 1em;
+  section {
+    margin-bottom: 1em;
+  }
+}
+
+.dashboard-list {
+  li {
+    display: block;
+    a {
+      display: block;
+      margin: 5px;
+      background: #fff;
+      box-shadow: 0px 1px 1px rgba(0, 0, 0, .4);
+      color: #333;
+      padding: 0 10px;
+    }
+  }
+}
+
+.actions {
+  clear: both;
+  padding: 20px 0 0;
+}

@@ -1,0 +1,57 @@
+{% extends '::_base.html.twig' %}
+
+{% block main %}
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.4.4/jquery.min.js" type="text/javascript"></script>
+  <section id="dashboard-header" class="grid-12 swatch swatch-blue-white">
+    <div class="container">
+      <div class="grid-2" id="dashboard-image">
+        <img src="http://lorempixel.com/400/400/people/" />
+      </div>
+      <div class="grid-10">
+        <h1>Steve Worley</h1>
+        <p>sj.worley88@gmail.com</p>
+      </div>
+    </div>
+  </section>
+
+  <section id"dashboard-projects" class="grid-12 swatch swatch-white-black">
+    <div class="container">
+      <header class="dashboard-title text-centre">
+        <h1><i class="icon-folder"></i> Projects</h1></header>
+      <ul class="dashboard-list align-centre">
+        {% for i in 0..11 %}
+          <li class="grid-3">
+            <a href="#">
+              <span class="list-title"><i class="icon-folder"></i> Project</span>
+              <span class="list-icon align-right">
+                {% if i is even %}
+                  <i class="icon-github"></i>
+                {% endif %}
+              </span>
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+      <p class="text-centre actions"><a href="#"><i class="icon-folder-add"></i> Add another project</a></p>
+    </div>
+  </section>
+
+  <section id="dashboard-files" class="grid-12 swatch swatch-blue-white">
+    <div class="container">
+      <header class="dashboard-title text-centre"><h1><i class="icon-doc-text"></i> Files</h1></header>
+      <ul class="dashboard-list align-centre">
+        {% for i in 0..11 %}
+          <li class="grid-3">
+            <a href="#">
+              <span class="list-title">Project</span>
+              <span class="list-icon">
+                <i class="icon-doc-text"></i>
+              </span>
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+      <p class="text-centre actions"><a href="#"><i class="icon-doc-add"></i> Add another file</a></p>
+    </div>
+  </section>
+{% endblock %}

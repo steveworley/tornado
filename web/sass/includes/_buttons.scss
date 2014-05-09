@@ -1,0 +1,40 @@
+//
+// @file navigation.scss
+// Control the different navigation blocks around the page
+//
+// @author: Steve Worley <sj.worley88@gmail.com>
+//
+
+%btn {
+  background: $blue-dark;
+  border: 0;
+  color: #fff;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,.3);
+  display: block;
+  padding: 0px 10px;
+  text-decoration: none;
+  transition: all .5s;
+
+  &:hover {
+    text-decoration: none;
+    background: lighten($blue-dark, 10%);
+  }
+}
+
+.btn {
+  @extend %btn;
+}
+
+.btn-white {
+  background: #fff;
+  color: #666;
+  &:hover {
+    background: $silver-light;
+  }
+}
+.btn-happy {
+  background: $green-dark
+}
+.btn-sad {
+  background: $red-dark;
+}

@@ -1,0 +1,54 @@
+//
+// @file header.scss
+// Controls the header of the website.
+//
+// @author: Steve Worley <sj.worley88@gmail.com>
+//
+
+#home-page-features {
+  [class^=icon] {
+    font-size: $base-font-size + 16;
+  }
+}
+
+#home-page-forms {
+  #upload {
+    background: rgba(white, .1);
+    border: 1px dashed rgba(white, .5);
+    padding: 50px;
+    box-sizing: border-box;
+    position: relative;
+
+    [class^=icon] {
+      text-shadow: 0px 2px 0px rgba(125, 125, 125,.4);
+      color: #fff;
+      font-size: 70px;
+    }
+
+    form {
+      display: none;
+    }
+    [type="submit"],
+    button {
+      background: $turquoise-dark;
+      cursor: pointer;
+    }
+  }
+  #editor {
+    height: 250px;
+  }
+  .btn-big {
+    background: #fff;
+    color: #333;
+    cursor: pointer;
+    padding: 10px;
+    margin: 10px auto;
+    &:hover {
+      background: $silver-dark;
+    }
+    &:active {
+      position: relative;
+      top: 1px;
+    }
+  }
+}

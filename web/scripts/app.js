@@ -14,8 +14,8 @@ require.config({
   baseUrl:  window.location.protocol + "//" + window.location.host
           + window.location.pathname.split("/").slice(0, -1).join("/"),
   paths: {
-    ace: 'scripts/lib/ace',
-    lib:  'scripts/app',
+    ace: '/scripts/lib/ace',
+    lib:  '/scripts/app',
   }
 });
 
@@ -85,7 +85,7 @@ require.config({
       var ace = args[0];
 
       window.editor = ace.edit('editor');
-      editor.setTheme('ace/theme/github');
+      editor.setTheme('ace/theme/tomorrow_night_eighties');
       editor.getSession().setMode('ace/mode/php');
     });
   })

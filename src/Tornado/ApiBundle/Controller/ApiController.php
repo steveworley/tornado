@@ -74,7 +74,8 @@ class ApiController extends BaseApiController
 
     $resource->setFile($filePath)
       ->setCreated(new \DateTime)
-      ->setId($this->get('tornado_api.file_manager')->getFileName());
+      ->setId($this->get('tornado_api.file_manager')->getFileName())
+      ->setTotal($resource->getTotalComplexity());
 
     $this->persist($resource);
 

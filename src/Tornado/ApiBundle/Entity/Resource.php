@@ -7,6 +7,8 @@ use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Type;
 
+use Doctrine\ORM\EntityManager;
+
 /**
  * @ExclusionPolicy("all")
  */
@@ -28,8 +30,7 @@ class Resource
 
   /**
    * @var \DateTime
-   * @Expose
-   */
+   * @Expose */
   public $created;
 
   /**
@@ -119,6 +120,30 @@ class Resource
   }
 
   /**
+   * Set the Total.
+   *
+   * @param float $total
+   *
+   * @return Resource
+   */
+  public function setTotal($total)
+  {
+    $this->total = $total;
+
+    return $this;
+  }
+
+  /**
+   * Get the total.
+   *
+   * @return float
+   */
+  public function getTotal()
+  {
+    return $this->total;
+  }
+
+  /**
    * Global setter.
    *
    * This will attempt to set any given property on this resource. It requires
@@ -148,5 +173,33 @@ class Resource
     }
 
     return file_get_contents($this->getFile());
+  }
+
+  /**
+   * Calculate total file complexity.
+   *
+   * @return float
+   */
+  public function calculateComplexity()
+  {
+    $complexity = $this->getComplexity();
+    return $complexity['Complexity']['Cyclomatic Complexity / LLOC'] * $complexity['Size']['Logical Lines of Code (LLOC)'];
+  }
+
+  /**
+   * Get the saved file name for this resource.
+   *
+   * @return string
+   */
+  public function getFilename()
+  {
+    $file = $this->getFile();
+    $file = explode('/', $file);
+    return end($file);
+  }
+
+  public function getRevisions()
+  {
+    $em = new EntityManager();
   }
 }

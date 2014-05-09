@@ -1,0 +1,21 @@
+Tornado\ApiBundle\Entity\Revision:
+    type: entity
+    table: revision
+    id:
+        id:
+            type: auto
+            id: true
+    fields:
+        total:
+            type: int
+            size: small
+        complexity:
+            type: text
+            size: medium
+        file:
+            type: string
+            length: 255
+        created:
+            type: date
+
+    lifecycleCallbacks: {  }

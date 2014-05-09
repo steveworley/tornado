@@ -60,4 +60,9 @@ class DefaultController extends Controller
     {
       return $this->render('TornadoUserBundle:Default:new.html.twig');
     }
+
+    public function _dashboardAction()
+    {
+      return $this->render('TornadoUserBundle:Default:new_user.html.twig');
+    }
 }

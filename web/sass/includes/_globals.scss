@@ -21,6 +21,13 @@
   float: none;
 }
 
+.pull-right {
+  margin-right: -10px;
+}
+.pull-left {
+  margin-left: -10px;
+}
+
 .text-right {
   text-align: right!important;
 }
@@ -29,6 +36,12 @@
 }
 .text-centre {
   text-align: center!important;
+}
+
+%flex-align-center {
+  align-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 // |---------------------------------
@@ -42,4 +55,68 @@
   right: 20px;
   left: 20px;
   position: absolute;
+}
+
+// |---------------------------------
+// | Useful mixins.
+// |---------------------------------
+
+//
+// Css arrows.
+// ------------------------
+// Included on the element that needs an arrow.
+// @see http://dontwakemeup.com/sass-mixin-for-pseudo-element-css-arrows/
+//
+@mixin css-arrow($arrow-position, $arrow-color, $arrow-size) {
+  position: relative;
+
+  &:after {
+    position: absolute;
+    border: solid transparent;
+    content: " ";
+    top: auto;
+    left: auto;
+    height: 0;
+    width: 0;
+    margin: 0;
+    border-color: transparent;
+    border-width: $arrow-size;
+    pointer-events: none;
+  }
+  @if $arrow-position == "top" {
+    &:after {
+      bottom: 100%;
+      border-bottom-color: $arrow-color;
+      margin-left: (-$arrow-size);
+      left: 50%;
+    }
+  }
+  @if $arrow-position == "right" {
+    &:after {
+      left: 100%;
+      border-left-color: $arrow-color;
+      margin-top: (-$arrow-size);
+      top: 50%;
+    }
+  }
+  @if $arrow-position == "bottom" {
+    &:after {
+      top: 100%;
+      border-top-color: $arrow-color;
+      margin-left: (-$arrow-size);
+      left: 50%;
+    }
+  }
+  @if $arrow-position == "left" {
+    &:after {
+      right: 100%;
+      border-right-color: $arrow-color;
+      margin-top: (-$arrow-size);
+      top: 50%;
+    }
+  }
+}
+
+.hidden {
+  display: none;
 }

@@ -1,25 +1,52 @@
 {% extends '::_base.html.twig' %}
 
 {% block main %}
-  <section id="home-page-header" class="section angle-left swatch-blue-white">
+  <section id="home-page-header" class="section angle-left swatch swatch-blue-white">
     <div class="container content">
       <div class="grid-12 first-row">
+        <div class="site-icon"><i class="icon-cloud-flash"></i></div>
         <h1 class="site-title">Tornado</h1>
         <p class="site-sub-title">Cloud based cyclomatic complexity code analysis tool.</p>
       </div>
     </div>
   </section>
-  <section id="home-page-features" class="section angle-right swatch-white-black accent-blue">
+  <section id="home-page-features" class="section angle-right swatch swatch-white-black accent-blue">
     <div class="container content">
       <div class="grid-12 text-centre first-row">
         <h1>Features</h1>
-        <p class="grid-10 align-centre">Tornado is a unique tool that brings php code analysis to the clound. It consolidates and presents the output from tools like PHPLoc (author), PHP MD (author) and PHP CS (author) and helps track changes in a project or file.</p>
+        <p class="grid-9 align-centre">Tornado is a unique tool that brings php code analysis to the cloud. It consolidates and presents the output from tools like PHPLoc (author), PHP MD (author) and PHP CS (author) and helps track changes in a project or file.</p>
       </div>
       <div class="container-blocks">
-        <div class="grid-4"><h2>Project tracking</h2></div>
-        <div class="grid-4"><h2>File timeline</h2></div>
-        <div class="grid-4"><h2>Github integration</h2></div>
+        <div class="grid-4">
+          <h2><i class="icon-github"></i> GitHub integration</h2>
+          <p>Integrate directly with GitHub and run the tools against a repository.</p>
+        </div>
+        <div class="grid-4">
+          <h2><i class="icon-clock"></i> File timeline</h2>
+          <p>Track your progress with a file so you can at-a-glance see the complexity of your files/project over time.</p>
+        </div>
+        <div class="grid-4">
+          <h2><i class="icon-folder"></i> Project tracking</h2>
+          <p>Upload multiple files to start tracking complexity against a project.</p>
+        </div>
       </div>
     </div>
   </section>
+  <section id="home-page-forms" class="section angle-left swatch swatch-blue-white accent-white text-right">
+    <div class="container content">
+      <div class="grid-12 first-row text-centre">
+        <h1>Try it out</h1>
+        <div class="grid-6 align-centre" id="upload">
+          <div class="draggable draggable-upload">
+            <p><i class="icon-upload-cloud-outline"></i></p>
+            <p>Click or a drop a file to begin upload</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}
+
+{% block script %}
+  <script type="text/javascript" src="{{ asset('scripts/app.js') }}" data-libraries="lib/binds,lib/forms,lib/menu"></script>
 {% endblock %}

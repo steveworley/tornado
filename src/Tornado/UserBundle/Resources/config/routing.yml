@@ -13,3 +13,7 @@ tornado_user_dashboard:
 tornado_user_new:
     pattern: /_new
     defaults: { _controller: TornadoUserBundle:Default:_new }
+
+tornado_user_new_user:
+    pattern: /_dashboard
+    defaults: { _controller: TornadoUserBundle:Default:_dashboard }

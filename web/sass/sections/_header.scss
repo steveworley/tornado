@@ -5,7 +5,7 @@
 // @author: Steve Worley <sj.worley88@gmail.com>
 //
 #header {
-  padding: 10px 0;
+  padding: 0;
 }
 
 .logo {
@@ -20,6 +20,12 @@
 // |---------------------------------
 #home-page-header {
   text-align: center;
+  .site-icon {
+    display: block;
+    font-size: 100px;
+    margin-bottom: -15px;
+    text-shadow: 0px 2px 0px rgba(125,125,125,0.4);
+  }
   .site-title {
     font-size: $base-font-size * 4;
   }
@@ -32,7 +38,6 @@
     }
   }
 }
-
 
 // |---------------------------------
 // | User page header styles.

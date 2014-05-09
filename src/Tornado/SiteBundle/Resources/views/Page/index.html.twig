@@ -2,24 +2,36 @@
 {% extends 'TornadoSiteBundle::layout.html.twig' %}
 
 {% block main %}
-  <div class="index" id="home">
-    <h1 class="header-brand"><img src="{{ asset("images/logo-swirl-blue.png") }}"><br/>Tornado</h1>
-    <h2 class="header-slogan">Code complexity analysis tool for PHP.</h2>
 
-    <div class="has-js step-1 form" id="upload">
-      <div class="progress progress-striped hidden" id="file-upload-progress">
-        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-      </div>
-      <p class="upload-link"><button class="upload btn btn-info btn-big" data-bindto="resource_file"><span class="glyphicon glyphicon-cloud-upload"></span> Upload a file</button><br /><a href="#code" class="btn btn-link">or paste in some code</a></p>
-    </div>
+    {% include 'TornadoSiteBundle::Page/content/top.html.twig' %}
+    {% include 'TornadoSiteBundle::Page/content/features.html.twig' %}
 
-    {% include 'TornadoSiteBundle::Page/partials/form.html.twig' with {'form': uploadFile, 'path': path('tornado_api_upload')} %}
+    <section id="home-page-forms" class="section angle-left swatch swatch-blue-white accent-white text-right">
+        <div class="container content">
+            <div class="grid-12 first-row text-centre">
+                <h1>Try it out</h1>
+                <div class="grid-6 align-centre" data-toggle="true" data-link="or paste some code" id="upload">
+                    <div class="draggable draggable-upload">
+                        <p><i class="icon-upload-cloud-outline"></i></p>
+                        <p>Click or a drop a file to begin upload</p>
+                    </div>
 
-    {# Include the source code file #}
-    {% include 'TornadoSiteBundle::Page/source_code.html.twig' %}
-  </div>
+                    {# Include the upload file form #}
+                    {% include 'TornadoSiteBundle::Page/partials/form.html.twig' with {'form': uploadFile, 'path': path('tornado_api_upload')} %}
+                </div>
+                <div id="upload-code" data-toggle="true" data-link="or upload a file" class="grid-6 align-centre hidden">
+                    <div id="editor" class="text-left"></div>
+                    <p class="upload-link"><button id="send-code" class="btn btn-info btn-big"><i class="icon-upload-cloud-outline"></i> Send source code</button>
+
+                    {# Include the source code file #}
+                    {% include 'TornadoSiteBundle::Page/partials/form.html.twig' with { 'form': uploadSource, 'path': path('tornado_api_upload')} %}
+                </div>
+                <p class="text-centre"><a href="#bind" id="link-toggle">or paste some code</a></p>
+            </div>
+        </div>
+    </section>
 {% endblock %}
 
-{% block javascript %}
-  <script type="text/javascript" src="{{ asset('scripts/app.js') }}" data-libraries="ace/ace,lib/binds,lib/forms"></script>
+{% block script %}
+    <script type="text/javascript" src="{{ asset('scripts/app.js') }}" data-libraries="ace/ace,lib/menu,lib/binds,lib/forms"></script>
 {% endblock %}

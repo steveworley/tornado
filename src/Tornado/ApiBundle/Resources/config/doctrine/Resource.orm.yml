@@ -6,6 +6,9 @@ Tornado\ApiBundle\Entity\Resource:
             type: string
             id: true
     fields:
+        total:
+            type: int
+            size: small
         complexity:
             type: text
             size: medium

@@ -1,0 +1,9 @@
+{% if total < 2 %}
+  <div class="box text-centre grid-1 swatch-orange-white" id="overall">
+{% elseif total > 2 and total < 50 %}
+  <div class="box text-centre grid-1 swatch-green-white" id="overall">
+{% else %}
+  <div class="box text-centre grid-1 swatch-red-white" id="overall">
+{% endif %}
+  {{ total }}
+</div>
