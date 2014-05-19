@@ -13,7 +13,7 @@
       $el.addClass('active');
       $('[data-tabs-content]').removeClass('active');
       $($el.data('tabs')).addClass('active');
-      console.log('clicked');
+      evt.preventDefault();
     });
   }
 

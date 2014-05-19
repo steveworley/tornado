@@ -1,0 +1,47 @@
+//
+// @file Tables.scss
+// Style up our tables.
+//
+// @author: Steve Worley <sj.worley88@gmail.com>
+//
+
+$table-padding: 8px;
+$table-border-color: $silver-dark;
+
+.table {
+  width: 100%;
+
+  thead {
+    tr {
+      border-collapse: collapse;
+      box-sizing: border-box;
+      th {
+        border-bottom: 2px solid $table-border-color;
+        font-family: $sans-serif;
+        font-weight: bold;
+        padding: $table-padding;
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      td {
+        border-bottom: 1px solid $table-border-color;
+        padding: $table-padding;
+      }
+    }
+  }
+
+  &.table-stripped {
+    tbody {
+      tr:nth-child(even) {
+        background: $silver-light;
+      }
+    }
+  }
+
+  &.table-bordered {
+    border: 1px solid $table-border-color;
+  }
+}

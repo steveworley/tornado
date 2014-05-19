@@ -1,0 +1,25 @@
+Tornado\ApiBundle\Entity\Revision:
+    type: entity
+    table: revisions
+
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        entity:
+            type: text
+            length: medium
+
+    manyToOne:
+        resource_id:
+            targetEntity: Tornado\ApiBundle\Entity\Resource
+            joinTable:
+                name: tornado
+                joinColumns:
+                    id:
+                        referencedColumnName: resourc_id
+
+    lifecycleCallbacks: {  }

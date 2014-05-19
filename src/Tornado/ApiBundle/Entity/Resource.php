@@ -7,7 +7,8 @@ use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Type;
 
-use Doctrine\ORM\EntityManager;
+// Used for oneToMany relationship.
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ExclusionPolicy("all")
@@ -30,13 +31,33 @@ class Resource
 
   /**
    * @var \DateTime
-   * @Expose */
+   * @Expose
+   */
   public $created;
 
   /**
    * @var string
    */
   private $file;
+
+  /**
+   * @var integer
+   * @Type("integer")
+   * @Expose
+   */
+  public $total;
+
+  /**
+   * @var ArrayCollection
+   */
+  protected $revisions;
+
+  /**
+   * Cosntruct a resource and inisitalize the revisions.
+   */
+  public function __construct() {
+    $this->revisions = new ArrayCollection();
+  }
 
   /**
    * Get id
@@ -97,6 +118,16 @@ class Resource
   }
 
   /**
+   * Get created
+   *
+   * @return date
+   */
+  public function getCreated()
+  {
+    return $this->created;
+  }
+
+  /**
    * Set file
    *
    * @param UploadedFile file
@@ -114,7 +145,7 @@ class Resource
    *
    * @return File
    */
-  private function getFile()
+  public function getFile()
   {
     return $this->file;
   }
@@ -141,6 +172,29 @@ class Resource
   public function getTotal()
   {
     return $this->total;
+  }
+
+  /**
+   * Set \revisions
+   *
+   * @param ArrayCollection $revisions
+   *  A collection of revisions relating to this resource.
+   *
+   * @return Resource
+   */
+  public function setRevisions($revisions)
+  {
+    $this->revisions = $revisions;
+
+    return $this;
+  }
+
+  /**
+   * Get all revision related to this Resource.
+   */
+  public function getRevisions()
+  {
+    return $this->revisions;
   }
 
   /**
@@ -183,7 +237,8 @@ class Resource
   public function calculateComplexity()
   {
     $complexity = $this->getComplexity();
-    return $complexity['Complexity']['Cyclomatic Complexity / LLOC'] * $complexity['Size']['Logical Lines of Code (LLOC)'];
+    $number = $complexity['Complexity']['Cyclomatic Complexity / LLOC'] * $complexity['Size']['Logical Lines of Code (LLOC)'];
+    return number_format($number, 2);
   }
 
   /**
@@ -196,10 +251,5 @@ class Resource
     $file = $this->getFile();
     $file = explode('/', $file);
     return end($file);
-  }
-
-  public function getRevisions()
-  {
-    $em = new EntityManager();
   }
 }

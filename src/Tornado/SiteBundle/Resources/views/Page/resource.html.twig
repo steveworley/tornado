@@ -9,7 +9,7 @@
 
 <section class="section swatch-blue-white" id="file-title">
   <div class="container">
-    {% include 'TornadoSiteBundle::Page/resource/total.html.twig' with {'total': Resource.getTotalComplexity} %}
+    {% include 'TornadoSiteBundle::Page/resource/total.html.twig' with {'total': Resource.getTotal } %}
     <h1 class="grid-10">{{ Resource.getFilename }}</h1>
   </div>
 </section>
@@ -20,35 +20,103 @@
       <a href="#{{ key }}" data-tabs="#{{ key }}" class="tab-link {% if loop.first %}active{% endif %}">{{ key }}</a>
     {% endfor %}
     <a href="#Code" data-tabs="#Code" class="tab-link">Code</a>
+    <a href="#Revisions" data-tabs="#Revisions" class="tab-link">Revisions</a>
+    <a href="#Compare" data-tabs="#Compare" class="tab-link swatch-red-white">Compare</a>
   </div>
 </section>
 
 <section class="section swatch-white-black" id="file-output">
   <div class="container text-centre">
+
     {% for name, source in Resource.getComplexity() %}
         <div id="{{ name }}"  data-tabs-content="true" class="tab-pane grid-8 align-centre {% if loop.first %}active{% endif %}">
           <h3 class="text-left">{{ name }}</h3>
-          <table class="table table-bordered table-hover text-left" width="100%">
+          <table class="table table-bordered table-stripped text-left" width="100%">
             <tbody>
               {% for key, value in source %}
                 <tr>
                   <td>{{ key }}</td>
-                  <td>{{ value }}</td>
+                  <td width="15%" class="text-centre">{{ value }}</td>
                 </tr>
               {% endfor %}
             </tbody>
           </table>
         </div>
       {% endfor %}
+
+      {#
+        Include the file that can be loaded form the file system.
+      #}
       <div id="Code" data-tabs-content="true" class="tab-pane fade text-left grid-8 align-centre">
         <h3>Code</h3>
         <pre><code>{{ File }}</code></pre>
+      </div>
+
+      <div id="Revisions" data-tabs-content="true" class="tab-pane fade text-left grid-8 align-centre">
+        <h3>Revisions</h3>
+        <p id="add-revisions"><a href="#bind"><i class="icon-doc-add"></i>Add revision</a></p>
+        <div class="text-centre" id="revision-add">
+          <div class="grid-8 align-centre" data-toggle="true" data-link="or paste some code" id="upload">
+              <div class="draggable draggable-upload">
+                  <p><i class="icon-upload-cloud-outline"></i></p>
+                  <p>Click or a drop a file to begin upload</p>
+              </div>
+
+              {# Include the upload file form #}
+              {% include 'TornadoSiteBundle::Page/partials/form.html.twig' with {
+                'form': revisionUploadForm,
+                'path': path('tornado_api_upload_revision'),
+                'rid': Resource.getId
+              }%}
+          </div>
+          <div id="upload-code" data-toggle="true" data-link="or upload a file" class="grid-8 align-centre hidden">
+              <div id="editor" class="text-left"></div>
+              <p class="upload-link"><button id="send-code" class="btn btn-info btn-big"><i class="icon-upload-cloud-outline"></i> Send source code</button>
+
+              {# Include the source code file #}
+              {% include 'TornadoSiteBundle::Page/partials/form.html.twig' with {
+                'form': revisionSourceCodeForm,
+                'path': path('tornado_api_upload_revision'),
+                'rid': Resource.getId
+              }%}
+          </div>
+          <p class="text-centre"><a href="#bind" id="link-toggle">or paste some code</a></p>
+        </div>
+
+        {# Revisions #}
+        <table id="revisions-list" class="table table-stripped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Complexity</th>
+              <th>Created</th>
+            </tr>
+          </thead>
+          {% for num, revision in Resource.getRevisions %}
+            {{ dump(revision.getResourceId) }}
+            <tr>
+              <td>{{ num }}</td>
+              <td>{{ revision.getEntity.getFileName }}</td>
+              <td>{{ revision.getEntity.getTotal }}</td>
+              <td>{{ revision.getEntity.getCreated|date('Y-m-d') }}</td>
+            </tr>
+          {% endfor %}
+        </table>
+      </div>
+
+      {#
+        Include forms that will allow the user to upload additional code to
+        compare this Resource with.
+      #}
+      <div id="Compare" data-tabs-content="true" class="tab-pane text-left grid-8 align-centre">
+        <h3>Compare</h3>
       </div>
   </div>
 </section>
 {% endblock %}
 
 {% block script %}
-  <script type="text/javascript" src="{{ asset('scripts/app.js') }}" data-libraries="lib/menu,lib/tab,lib/forms"></script>
+  <script type="text/javascript" src="{{ asset('scripts/app.js') }}" data-libraries="ace/ace,lib/menu,lib/tab,lib/forms"></script>
   <script>hljs.initHighlightingOnLoad();</script>
 {% endblock %}

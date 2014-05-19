@@ -4,6 +4,13 @@ tornado_api_upload:
   defaults: { _controller: TornadoApiBundle:Api:upload }
   methods: [POST]
 
+# Handle revision uploads.
+tornado_api_upload_revision:
+  pattern: /api/revision-create
+  defaults: { _controller: TornadoApiBundle:Api:revisionCreate }
+  methods: [POST]
+
+
 # Resource requests
 tornado_api_resource_get:
   pattern: /api/r/{id}

@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 use Tornado\ApiBundle\Entity\Resource;
 use Tornado\ApiBundle\Controller\BaseApiController;
+use Tornado\ApiBundle\Entity\Revision;
 
 // Use form types
 use Tornado\SiteBundle\Forms\Type\SourceCodeType;
@@ -29,7 +30,7 @@ class PageController extends BaseApiController
    */
   public function getNewEntity()
   {
-    return new Resource;
+    return new Resource();
   }
 
   /**
@@ -95,12 +96,27 @@ class PageController extends BaseApiController
    */
   public function showAction($id)
   {
-    $resource = $this->getEntity($id);
+    if (!$resource = $this->getEntity($id)) {
+      throw $this->createNotFoundException("No resource with $id has been found.");
+    }
+
+    $forms = array(
+      $this->createForm(new UploadFileType),
+      $this->createForm(new SourceCodeType),
+    );
+
+    $em = $this->getDoctrine()->getManager();
+    $repo = $em->getRepository('TornadoApiBundle:Revision');
+
+    $revisions = $repo->findBy(array('resource_id' => $resource));
+    $resource->setRevisions($revisions);
 
     return $this->render('TornadoSiteBundle:Page:resource.html.twig', array(
       'menu' => $this->getPageMenu(),
       'Resource' => $resource,
       'File' => $resource->loadSourceFile(),
+      'revisionUploadForm' => $forms[0]->createView(),
+      'revisionSourceCodeForm' => $forms[1]->createView(),
     ));
   }
 }

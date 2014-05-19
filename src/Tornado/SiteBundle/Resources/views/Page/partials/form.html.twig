@@ -1,5 +1,10 @@
 <form class="form hidden" method="POST" action="{{ path }}" enctype="multipart/form-data">
   {{ form_rest(form) }}
+  
+  {% if rid is defined %}
+    <input type="hidden" name="rid" value="{{ rid }}" />
+  {% endif %}
+
   <input type="submit">
   <div id="output"></div>
 </form>

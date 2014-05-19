@@ -1,23 +1,61 @@
-.navbar-header img { max-width: 30px; position: relative; top: -3px; }
+/*
+Syntax error: File to import not found or unreadable: bootflat/global.
+              Load paths:
+                /home/worleys/symfony/root/web/sass
+                /var/lib/gems/1.9.1/gems/compass-0.12.5/frameworks/blueprint/stylesheets
+                /var/lib/gems/1.9.1/gems/compass-0.12.5/frameworks/compass/stylesheets
+                Compass::SpriteImporter
+        on line 4 of /home/worleys/symfony/root/web/sass/tornado.scss
 
-body { background: url("../images/greyzz.png") 0 0 repeat; }
+1: /home/worleys/symfony/root/web/sass/tornado.scss
 
-#main { padding-top: 55px; }
-
-.index#home { text-align: center; }
-.index .header-brand { color: #4a89dc; font-size: 80px; }
-.index .header-slogan { margin-top: -10px; }
-.index .step-1 { margin-top: 40px; }
-.index .btn.btn-big { font-size: 22px; }
-.index table { background: white; }
-.index pre { border: 0; }
-
-#code .col-md-6 { float: none; margin: 0 auto; }
-#code #editor { height: 300px; text-align: left; margin-bottom: 1em; }
-
-.user-dashboard { font-family: "Open Sans", sans-serif; }
-.user-dashboard h1, .user-dashboard h2, .user-dashboard h3 { font-weight: normal; }
-.user-dashboard .user-dashboard-header { background-color: #37bc9b; border-bottom: 3px solid #31a88b; color: rgba(255, 255, 255, 0.7); border-top-left-radius: 5px; border-top-right-radius: 5px; padding: 1em 0; }
-.user-dashboard .user-dashboard-header .user-name { font-size: 22px; }
-.user-dashboard .user-dashboard-header .user-email { display: block; font-style: italic; position: relative; top: -5px; }
-.user-dashboard .user-main { border-bottom-right-radius: 5px; border-bottom-left-radius: 5px; border: 3px solid #ccd1d9; border-top: 0; }
+Backtrace:
+/home/worleys/symfony/root/web/sass/tornado.scss:4
+/var/lib/gems/1.9.1/gems/sass-3.2.19/lib/sass/tree/import_node.rb:67:in `rescue in import'
+/var/lib/gems/1.9.1/gems/sass-3.2.19/lib/sass/tree/import_node.rb:45:in `import'
+/var/lib/gems/1.9.1/gems/sass-3.2.19/lib/sass/tree/import_node.rb:28:in `imported_file'
+/var/lib/gems/1.9.1/gems/sass-3.2.19/lib/sass/tree/import_node.rb:37:in `css_import?'
+/var/lib/gems/1.9.1/gems/sass-3.2.19/lib/sass/tree/visitors/perform.rb:217:in `visit_import'
+/var/lib/gems/1.9.1/gems/sass-3.2.19/lib/sass/tree/visitors/base.rb:37:in `visit'
+/var/lib/gems/1.9.1/gems/sass-3.2.19/lib/sass/tree/visitors/perform.rb:100:in `visit'
+/var/lib/gems/1.9.1/gems/sass-3.2.19/lib/sass/tree/visitors/base.rb:53:in `block in visit_children'
+/var/lib/gems/1.9.1/gems/sass-3.2.19/lib/sass/tree/visitors/base.rb:53:in `map'
+/var/lib/gems/1.9.1/gems/sass-3.2.19/lib/sass/tree/visitors/base.rb:53:in `visit_children'
+/var/lib/gems/1.9.1/gems/sass-3.2.19/lib/sass/tree/visitors/perform.rb:109:in `block in visit_children'
+/var/lib/gems/1.9.1/gems/sass-3.2.19/lib/sass/tree/visitors/perform.rb:121:in `with_environment'
+/var/lib/gems/1.9.1/gems/sass-3.2.19/lib/sass/tree/visitors/perform.rb:108:in `visit_children'
+/var/lib/gems/1.9.1/gems/sass-3.2.19/lib/sass/tree/visitors/base.rb:37:in `block in visit'
+/var/lib/gems/1.9.1/gems/sass-3.2.19/lib/sass/tree/visitors/perform.rb:128:in `visit_root'
+/var/lib/gems/1.9.1/gems/sass-3.2.19/lib/sass/tree/visitors/base.rb:37:in `visit'
+/var/lib/gems/1.9.1/gems/sass-3.2.19/lib/sass/tree/visitors/perform.rb:100:in `visit'
+/var/lib/gems/1.9.1/gems/sass-3.2.19/lib/sass/tree/visitors/perform.rb:7:in `visit'
+/var/lib/gems/1.9.1/gems/sass-3.2.19/lib/sass/tree/root_node.rb:20:in `render'
+/var/lib/gems/1.9.1/gems/sass-3.2.19/lib/sass/engine.rb:315:in `_render'
+/var/lib/gems/1.9.1/gems/sass-3.2.19/lib/sass/engine.rb:262:in `render'
+/var/lib/gems/1.9.1/gems/compass-0.12.5/lib/compass/compiler.rb:139:in `block (2 levels) in compile'
+/var/lib/gems/1.9.1/gems/compass-0.12.5/lib/compass/compiler.rb:126:in `timed'
+/var/lib/gems/1.9.1/gems/compass-0.12.5/lib/compass/compiler.rb:138:in `block in compile'
+/var/lib/gems/1.9.1/gems/compass-0.12.5/lib/compass/logger.rb:45:in `red'
+/var/lib/gems/1.9.1/gems/compass-0.12.5/lib/compass/compiler.rb:137:in `compile'
+/var/lib/gems/1.9.1/gems/compass-0.12.5/lib/compass/compiler.rb:118:in `compile_if_required'
+/var/lib/gems/1.9.1/gems/compass-0.12.5/lib/compass/compiler.rb:103:in `block (2 levels) in run'
+/var/lib/gems/1.9.1/gems/compass-0.12.5/lib/compass/compiler.rb:101:in `each'
+/var/lib/gems/1.9.1/gems/compass-0.12.5/lib/compass/compiler.rb:101:in `block in run'
+/var/lib/gems/1.9.1/gems/compass-0.12.5/lib/compass/compiler.rb:126:in `timed'
+/var/lib/gems/1.9.1/gems/compass-0.12.5/lib/compass/compiler.rb:100:in `run'
+/var/lib/gems/1.9.1/gems/compass-0.12.5/lib/compass/commands/watch_project.rb:147:in `recompile'
+/var/lib/gems/1.9.1/gems/compass-0.12.5/lib/compass/commands/watch_project.rb:68:in `perform'
+/var/lib/gems/1.9.1/gems/compass-0.12.5/lib/compass/commands/base.rb:18:in `execute'
+/var/lib/gems/1.9.1/gems/compass-0.12.5/lib/compass/commands/project_base.rb:19:in `execute'
+/var/lib/gems/1.9.1/gems/compass-0.12.5/lib/compass/exec/sub_command_ui.rb:43:in `perform!'
+/var/lib/gems/1.9.1/gems/compass-0.12.5/lib/compass/exec/sub_command_ui.rb:15:in `run!'
+/var/lib/gems/1.9.1/gems/compass-0.12.5/bin/compass:30:in `block in <top (required)>'
+/var/lib/gems/1.9.1/gems/compass-0.12.5/bin/compass:44:in `call'
+/var/lib/gems/1.9.1/gems/compass-0.12.5/bin/compass:44:in `<top (required)>'
+/usr/local/bin/compass:23:in `load'
+/usr/local/bin/compass:23:in `<main>'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Syntax error: File to import not found or unreadable: bootflat/global.\A               Load paths:\A                 /home/worleys/symfony/root/web/sass\A                 /var/lib/gems/1.9.1/gems/compass-0.12.5/frameworks/blueprint/stylesheets\A                 /var/lib/gems/1.9.1/gems/compass-0.12.5/frameworks/compass/stylesheets\A                 Compass::SpriteImporter\A         on line 4 of /home/worleys/symfony/root/web/sass/tornado.scss\A \A 1: /home/worleys/symfony/root/web/sass/tornado.scss"; }

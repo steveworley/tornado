@@ -6,15 +6,18 @@ Tornado\ApiBundle\Entity\Resource:
             type: string
             id: true
     fields:
-        total:
-            type: int
-            size: small
         complexity:
             type: text
             size: medium
         file:
             type: string
             length: 255
+        total:
+            type: integer
+            length: 5
+            nullable: true
+            options:
+                default: 0
         created:
             type: date
 

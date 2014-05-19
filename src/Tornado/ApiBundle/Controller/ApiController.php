@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 // Use Tornado entities.
 use Tornado\ApiBundle\Entity\Resource;
+use Tornado\ApiBundle\Entity\Revision;
 
 class ApiController extends BaseApiController
 {
@@ -24,7 +25,7 @@ class ApiController extends BaseApiController
    */
   public function getNewEntity()
   {
-    return new Resource;
+    return new Resource();
   }
 
   /**
@@ -59,9 +60,9 @@ class ApiController extends BaseApiController
   }
 
   /**
-   * Handle a file upload request.
+   * Create a resource from the request.
    */
-  public function uploadAction(Request $request)
+  public function createResource(Request $request)
   {
     $file = $this->getFileFromRequest($request);
 
@@ -75,10 +76,57 @@ class ApiController extends BaseApiController
     $resource->setFile($filePath)
       ->setCreated(new \DateTime)
       ->setId($this->get('tornado_api.file_manager')->getFileName())
-      ->setTotal($resource->getTotalComplexity());
+      ->setTotal($resource->calculateComplexity());
 
+    return $resource;
+  }
+
+  /**
+   * Handle an upload request.
+   */
+  public function uploadAction(Request $request)
+  {
+    $resource = $this->createResource($request);
     $this->persist($resource);
 
     return $this->sendResponse($resource->getId());
+  }
+
+  /**
+   * Create a revision of the current resource.
+   */
+  public function revisionCreateAction(Request $request)
+  {
+    if (!($rid = $request->request->get('rid'))) {
+      throw $this->createNotFoundException("No resource found.");
+    }
+
+    // Make sure we have access to the entity manager.
+    $em = $this->getDoctrine()->getManager();
+
+    // Get a copy of the old Resource.
+    $base_resource = $em->getRepository('TornadoApiBundle:Resource')->find($rid);
+
+    // Build a new revision.
+    $revision = new Revision;
+    $revision->setResourceId($base_resource)->setEntity($base_resource);
+    $em->persist($revision);
+
+    // Create a new resource with the given data.
+    $resource = $this->createResource($request);
+
+    // Update the base resource.
+    $base_resource
+      ->setFile($resource->getFile())
+      ->setCreated($resource->getCreated())
+      ->setTotal($resource->getTotal());
+      // ->setRevisions($revision);
+
+    // Flushing the entity manager will persist the updated entity.
+    $em->persist($base_resource);
+    $em->flush();
+
+    // Send the Resource ID back so we can update
+    return $this->sendResponse($rid);
   }
 }
