@@ -20,6 +20,6 @@ Tornado\ApiBundle\Entity\Revision:
                 name: tornado
                 joinColumns:
                     id:
-                        referencedColumnName: resourc_id
+                        referencedColumnName: resource_id
 
     lifecycleCallbacks: {  }
