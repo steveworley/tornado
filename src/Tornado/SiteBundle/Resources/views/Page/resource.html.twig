@@ -94,10 +94,9 @@
             </tr>
           </thead>
           {% for num, revision in Resource.getRevisions %}
-            {{ dump(revision.getResourceId) }}
             <tr>
               <td>{{ num }}</td>
-              <td>{{ revision.getEntity.getFileName }}</td>
+              <td>{{ revision.getEntity.id }}.php</td>
               <td>{{ revision.getEntity.getTotal }}</td>
               <td>{{ revision.getEntity.getCreated|date('Y-m-d') }}</td>
             </tr>

@@ -31,6 +31,7 @@ class Resource
 
   /**
    * @var \DateTime
+   * @Type("DateTime")
    * @Expose
    */
   public $created;
@@ -45,7 +46,7 @@ class Resource
    * @Type("integer")
    * @Expose
    */
-  public $total;
+  private $total;
 
   /**
    * @var ArrayCollection
@@ -197,6 +198,15 @@ class Resource
     return $this->revisions;
   }
 
+  public function addRevision($revision)
+  {
+    $revisions = $this->getRevisions();
+    $revisions[] = $revision;
+    $this->setRevisions($revisions);
+
+    return $this;
+  }
+
   /**
    * Global setter.
    *
@@ -251,5 +261,9 @@ class Resource
     $file = $this->getFile();
     $file = explode('/', $file);
     return end($file);
+  }
+
+  public function __toString() {
+    return "Resource: $this->id";
   }
 }

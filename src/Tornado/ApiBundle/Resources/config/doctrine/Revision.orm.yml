@@ -11,15 +11,25 @@ Tornado\ApiBundle\Entity\Revision:
     fields:
         entity:
             type: text
-            length: medium
+            lenght: medium
 
     manyToOne:
-        resource_id:
+        resource:
             targetEntity: Tornado\ApiBundle\Entity\Resource
-            joinTable:
-                name: tornado
-                joinColumns:
-                    id:
-                        referencedColumnName: resource_id
+            inversedBy: revisions
+            joinColumn:
+                resource_id:
+                    referencedColumnName: id
+            cascade:
+                - persist
+
+    # manyToOne:
+    #     resource_id:
+    #         targetEntity: Tornado\ApiBundle\Entity\Resource
+    #         joinTable:
+    #             name: tornado
+    #             joinColumns:
+    #                 id:
+    #                     referencedColumnName: resource_id
 
     lifecycleCallbacks: {  }

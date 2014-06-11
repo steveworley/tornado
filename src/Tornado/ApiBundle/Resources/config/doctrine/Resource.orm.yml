@@ -21,4 +21,11 @@ Tornado\ApiBundle\Entity\Resource:
         created:
             type: date
 
+    oneToMany:
+        revisions:
+            targetEntity: Tornado\ApiBundle\Entity\Revision
+            mappedBy: resource
+            cascaed:
+                - persist
+                
     lifecycleCallbacks: {  }

@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 // Use Tornado entities.
 use Tornado\ApiBundle\Entity\Resource;
 use Tornado\ApiBundle\Entity\Revision;
+use JMS\Serializer\SerializerBuilder;
 
 class ApiController extends BaseApiController
 {
@@ -109,7 +110,9 @@ class ApiController extends BaseApiController
 
     // Build a new revision.
     $revision = new Revision;
-    $revision->setResourceId($base_resource)->setEntity($base_resource);
+
+    $revision->setEntity($base_resource)
+      ->setResource($base_resource);
     $em->persist($revision);
 
     // Create a new resource with the given data.
@@ -119,11 +122,11 @@ class ApiController extends BaseApiController
     $base_resource
       ->setFile($resource->getFile())
       ->setCreated($resource->getCreated())
-      ->setTotal($resource->getTotal());
-      // ->setRevisions($revision);
+      ->setTotal($resource->getTotal())
+      ->addRevision($revision);
 
     // Flushing the entity manager will persist the updated entity.
-    $em->persist($base_resource);
+    // $em->persist($base_resource);
     $em->flush();
 
     // Send the Resource ID back so we can update

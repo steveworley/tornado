@@ -34,6 +34,20 @@ class PageController extends BaseApiController
   }
 
   /**
+   * Get the forms for a specific type.
+   */
+  public function getForms($type)
+  {
+    $forms = array(
+      'file' => $this->createForm(new UploadFileType),
+      'code' => $this->createForm(new SourceCodeType),
+    );
+
+    // Build the form view.
+    return $forms[$type]->createView();
+  }
+
+  /**
    * Build a page menu.
    */
   public function getPageMenu()
@@ -63,15 +77,11 @@ class PageController extends BaseApiController
    */
   public function indexAction(Request $request)
   {
-    $forms = array(
-      $this->createForm(new UploadFileType),
-      $this->createForm(new SourceCodeType),
-    );
 
     return $this->render('TornadoSiteBundle:Page:index.html.twig', array(
       'menu' => $this->getPageMenu(),
-      'uploadFile' => $forms[0]->createView(),
-      'uploadSource' => $forms[1]->createView(),
+      'uploadFile' => $this->getForms('file'),
+      'uploadSource' => $this->getForms('code'),
     ));
   }
 
@@ -100,23 +110,12 @@ class PageController extends BaseApiController
       throw $this->createNotFoundException("No resource with $id has been found.");
     }
 
-    $forms = array(
-      $this->createForm(new UploadFileType),
-      $this->createForm(new SourceCodeType),
-    );
-
-    $em = $this->getDoctrine()->getManager();
-    $repo = $em->getRepository('TornadoApiBundle:Revision');
-
-    $revisions = $repo->findBy(array('resource_id' => $resource));
-    $resource->setRevisions($revisions);
-
     return $this->render('TornadoSiteBundle:Page:resource.html.twig', array(
       'menu' => $this->getPageMenu(),
       'Resource' => $resource,
       'File' => $resource->loadSourceFile(),
-      'revisionUploadForm' => $forms[0]->createView(),
-      'revisionSourceCodeForm' => $forms[1]->createView(),
+      'revisionUploadForm' => $this->getForms('file'),
+      'revisionSourceCodeForm' => $this->getForms('code'),
     ));
   }
 }
